@@ -2,13 +2,26 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+    entry: {
+        index: "./src/index.js",
+        default: "./src/defaultTodo.js",
+    },
+    output: {
+        filename: "[name].bundle.js",
+        path: path.resolve(__dirname, "dist"),
+        clean: true,
+    },
     mode: "development",
-    entry: "./src/index.js",
     devtool: "inline-source-map", 
     devServer: {
         static: "./dist", 
         hot: false,
-        // liveReload: false,
+        watchFiles: ["src/index.html"],
+        liveReload: true,
+        client: {
+            logging: "warn",
+        },
+
     },
     module: {
         rules: [
@@ -20,14 +33,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
+            template: "src/index.html",
         }),
     ],
-    output: {
-        filename: "main.js",
-        path: path.resolve(__dirname, "dist"),
-        clean: true,
-    },
     optimization: {
         // runtimeChunk: "single",
     },

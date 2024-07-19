@@ -1,3 +1,15 @@
-import "./style.css";
+//create default todo list module
 
-console.log("test test");
+//imports
+import "./reset.css";
+import "./style.css";
+import defaultTodo from "./defaultTodo";
+
+//declarations
+const contentElement = document.querySelector("#content");
+
+defaultTodo(contentElement);
+
+
+
+
