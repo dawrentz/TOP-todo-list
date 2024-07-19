@@ -9,13 +9,70 @@
      <!-- need script link tpye module? -->
 </head>
 <body>
-    <div id="header"><h1>TodoLoo</h1></div>
+    
+
+    <div id="header"><h1>todoloo</h1></div>
     <div id="sidebar">
-        <div class="sidebar-feature">Due Today</div>
-        <div class="sidebar-feature">Upcoming</div>
-        <div class="sidebar-feature">All Tasks</div>
-        <div class="sidebar-feature">Add Todoloo</div>
+        <div class="sidebar-feature">due today</div>
+        <div class="sidebar-feature">upcoming</div>
+        <div class="sidebar-feature">all tasks</div>
+        <!-- <div class="sidebar-feature">add todoloo</div> -->
     </div>
-    <div id="content"></div>
+    <div id="content">
+        <template id="default-todo">
+            <form action="#" method="post">
+                <div class="form-line" >
+                    <input
+                    type="text"
+                    name="title"
+                    id="title-input"
+                    placeholder="task title">
+                </div>
+                <div class="form-line" >
+                    <input
+                    type="text"
+                    name="project"
+                    id="project-input"
+                    placeholder="project">
+                </div>
+                <div class="form-line" >
+                    <input
+                    type="text"
+                    name="description"
+                    id="description-input"
+                    placeholder="description">
+                </div>
+                <div class="form-line">
+                    <input
+                    type="text"
+                    name="due-date"
+                    id="due-date-input"
+                    placeholder="due date">
+                </div>
+                <div class="form-line" >
+                    <input
+                    type="text"
+                    name="priority"
+                    id="priority-input"
+                    placeholder="priority">
+                </div>
+                <div class="form-line" >
+                    <input
+                    type="text"
+                    name="notes"
+                    id="notes-input"
+                    placeholder="notes">
+                </div>
+                <div class="form-line">
+                    <input
+                    type="text"
+                    name="check-list"
+                    id="check-list-input"
+                    placeholder="check list">
+                </div>
+            </form>
+            <button type="submit" id="todo-sub-btn">add task</button>
+        </template>
+    </div>
 </body>
 </html>
