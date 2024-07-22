@@ -10,7 +10,7 @@
 </head>
 <body>
     
-
+    
     <div id="header"><h1>todoloo</h1></div>
     <div id="sidebar">
         <div class="sidebar-feature">due today</div>
@@ -18,7 +18,8 @@
         <div class="sidebar-feature">all tasks</div>
         <!-- <div class="sidebar-feature">add todoloo</div> -->
     </div>
-    <div id="content">
+    <div id="content"></div>
+        <!-- had to move templates out of .content for clearPage() -->
         <template id="default-todo">
             add new 
             <form action="#" method="post">
@@ -106,6 +107,5 @@
                 <span class="check-line"></span>
             </div>
         </template>
-    </div>
 </body>
 </html>

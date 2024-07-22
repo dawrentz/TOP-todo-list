@@ -1,18 +1,48 @@
 //renderAll.js
 
 import taskModule from "./taskModule";
-
 const contentElement = document.querySelector("#content");
 
+function clearContent() {
+    contentElement.innerHTML = "";
+}
 
-//===================could move defaultTodo to here?
-export default function renderAll() {
+//add the default "add task" card
+export function defaultTodo() {
+    //create DOM elements
+    const defaultTodoCard = document.createElement("div");
+    defaultTodoCard.classList.add("defaultTodoCard");
+    contentElement.appendChild(defaultTodoCard);
     
+    //use html template for form
+    const todoTemplate = document.querySelector("#default-todo");
+    const todoTemplateClone = document.importNode(todoTemplate.content, true);
+    defaultTodoCard.appendChild(todoTemplateClone);
     
+    //collect all form inputs and pass values to task onstructor
+    const allInputs = defaultTodoCard.querySelectorAll("input");
     
-    taskModule.tasks.forEach(task => {
-        // console.log("new task===============");
+    const todoSubmitBtn = defaultTodoCard.querySelector("#todo-sub-btn");
+    todoSubmitBtn.addEventListener("click", () => {
+        // Create an array of input values
+        const inputValues = Array.from(allInputs).map(input => input.value);
         
+        // Create a new task with the input values
+        const temp = new taskModule.Task(...inputValues);
+        taskModule.addTask(temp);
+
+        renderAll();
+    });
+}
+
+
+
+//add all current tasks card to page (respects filter)
+export default function renderAll() {
+    clearContent();
+    defaultTodo();
+
+    taskModule.tasks.forEach(task => {
         
         //create DOM elements
         const newTodoCard = document.createElement("div");

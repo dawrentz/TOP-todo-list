@@ -7,6 +7,7 @@ module.exports = {
         index: "./src/index.js",
         default: "./src/defaultTodo.js",
         taskModule: "./src/taskModule.js",
+        render: "./render.js",
     },
     output: {
         filename: "[name].bundle.js",
