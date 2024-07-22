@@ -1,4 +1,12 @@
-export default function defaultTodo(contentElement, taskClass, addTaskFunc) {
+//defaultTodo.js
+
+import taskModule from "./taskModule";
+import renderAll from "./renderAll";
+
+const contentElement = document.querySelector("#content");
+
+
+export default function defaultTodo() {
     //create DOM elements
     const defaultTodoCard = document.createElement("div");
     defaultTodoCard.classList.add("defaultTodoCard");
@@ -18,7 +26,9 @@ export default function defaultTodo(contentElement, taskClass, addTaskFunc) {
         const inputValues = Array.from(allInputs).map(input => input.value);
         
         // Create a new task with the input values
-        const temp = new taskClass(...inputValues);
-        addTaskFunc(temp);
+        const temp = new taskModule.Task(...inputValues);
+        taskModule.addTask(temp);
+
+        renderAll();
     });
 }

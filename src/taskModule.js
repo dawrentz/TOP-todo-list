@@ -1,6 +1,9 @@
+//taskModule.js
+
 const taskModule = (function() {
     //declarations
     const tasks = [];
+    let idNum = 0;
 
     //classes
     class Task {
@@ -12,18 +15,21 @@ const taskModule = (function() {
             this.priority = priority;
             this.notes = notes;
             this.checkList = checkList;
+            this.idNum = idNum++;
         }
     }
 
     //functions
     function addTask(task) {
         tasks.push(task);
-        console.table(tasks);
+        //testing
+        // console.table(tasks);
     }
 
     return {
         Task,
-        addTask
+        addTask, 
+        tasks
     };
 })();
 

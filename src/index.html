@@ -6,7 +6,7 @@
     <title>Todoloo</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- <script src="index.js"></script> -->
-     <!-- need script link tpye module? -->
+    <!-- need script link tpye module? -->
 </head>
 <body>
     
@@ -20,58 +20,91 @@
     </div>
     <div id="content">
         <template id="default-todo">
+            add new 
             <form action="#" method="post">
                 <div class="form-line" >
                     <input
                     type="text"
                     name="title"
                     id="title-input"
-                    placeholder="task title">
+                    placeholder="task title"
+                    value="title">
                 </div>
                 <div class="form-line" >
                     <input
                     type="text"
                     name="project"
                     id="project-input"
-                    placeholder="project">
+                    placeholder="project"
+                    value="project">
                 </div>
                 <div class="form-line" >
                     <input
                     type="text"
                     name="description"
                     id="description-input"
-                    placeholder="description">
+                    placeholder="description"
+                    value="description">
                 </div>
                 <div class="form-line">
                     <input
                     type="text"
                     name="due-date"
                     id="due-date-input"
-                    placeholder="due date">
+                    placeholder="due date"
+                    value="due">
                 </div>
                 <div class="form-line" >
                     <input
                     type="text"
                     name="priority"
                     id="priority-input"
-                    placeholder="priority">
+                    placeholder="priority"
+                    value="priority">
                 </div>
                 <div class="form-line" >
                     <input
                     type="text"
                     name="notes"
                     id="notes-input"
-                    placeholder="notes">
+                    placeholder="notes"
+                    value="notes">
                 </div>
                 <div class="form-line">
                     <input
                     type="text"
                     name="check-list"
                     id="check-list-input"
-                    placeholder="check list">
+                    placeholder="check list"
+                    value="check">
                 </div>
             </form>
             <button type="submit" id="todo-sub-btn">add task</button>
+        </template>
+
+        <template id="new-todo">
+            new  card
+            <div class="todo-card-line">title: 
+                <span class="title-line"></span>
+            </div>
+            <div class="todo-card-line">project: 
+                <span class="project-line"></span>
+            </div>
+            <div class="todo-card-line">description: 
+                <span class="description-line"></span>
+            </div>
+            <div class="todo-card-line">due: 
+                <span class="due-line"></span>
+            </div>
+            <div class="todo-card-line">priority: 
+                <span class="priority-line"></span>
+            </div>
+            <div class="todo-card-line">notes: 
+                <span class="notes-line"></span>
+            </div>
+            <div class="todo-card-line">check: 
+                <span class="check-line"></span>
+            </div>
         </template>
     </div>
 </body>

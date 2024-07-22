@@ -1,12 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { default: taskModule } = require("./src/taskModule");
+// const { default: taskModule } = require("./src/taskModule");
 
 module.exports = {
     entry: {
         index: "./src/index.js",
         default: "./src/defaultTodo.js",
-        taskModule: "src/taskModule.js",
+        taskModule: "./src/taskModule.js",
     },
     output: {
         filename: "[name].bundle.js",

@@ -11,9 +11,40 @@ body {
     grid-column: 1 / -1;
 }
 
+#content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    align-content: start;
+    /* grid-template-columns: auto; */
+    gap: 1rem;
+  
+    margin-bottom: 2rem;
+
+    * {
+        /* max-width: 15rem; */
+        /* max-height: fit-content; */
+    }
+
+}
 
 
 
-.todoCard {
+
+
+.defaultTodoCard {
     background-color: white;
+    padding: 0.5rem;
+    outline: black solid 1px;
+}
+
+.newTodoCard {
+    background-color: white;
+    padding: 0.5rem;
+    outline: black solid 1px;
+
+    max-width: 100%;
+
+    
+
+
 }
