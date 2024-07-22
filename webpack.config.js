@@ -5,9 +5,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     entry: {
         index: "./src/index.js",
-        default: "./src/defaultTodo.js",
         taskModule: "./src/taskModule.js",
-        render: "./render.js",
+        render: "./src/render.js",
     },
     output: {
         filename: "[name].bundle.js",

@@ -36,7 +36,6 @@ export function defaultTodo() {
 }
 
 
-
 //add all current tasks card to page (respects filter)
 export default function renderAll() {
     clearContent();

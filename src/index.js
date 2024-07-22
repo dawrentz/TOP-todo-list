@@ -7,7 +7,6 @@ import renderAll from "./render.js";
 import taskModule from "./taskModule";
 // import renderAll from "./render";
 
-import {testX} from "./defaultTodo"; //delete
 
 //DOM cache
 // const contentElement = document.querySelector("#content");
