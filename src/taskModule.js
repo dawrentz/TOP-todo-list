@@ -3,7 +3,8 @@
 const taskModule = (function() {
     //declarations
     const tasks = [];
-    let idNum = 0;
+    let _idNum = 0;
+    const _projectsListArray = ["all"];
 
     //classes
     class Task {
@@ -15,7 +16,7 @@ const taskModule = (function() {
             this.priority = priority;
             this.notes = notes;
             this.checkList = checkList;
-            this.idNum = idNum++;
+            this._idNum = _idNum++;
         }
     }
 
@@ -26,10 +27,26 @@ const taskModule = (function() {
         // console.table(tasks);
     }
 
+    function updateProjectsList() {
+        tasks.forEach((task) => {
+            if (!_projectsListArray.includes(task.project)) {
+                _projectsListArray.push(task.project);
+           }
+           
+        });
+        //need delete project function
+
+        //testing
+        console.log(_projectsListArray);
+
+        return _projectsListArray;
+    }
+
     return {
         Task,
         addTask, 
-        tasks
+        tasks,
+        updateProjectsList,
     };
 })();
 

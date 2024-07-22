@@ -18,11 +18,27 @@ renderAll();
 
 
 //test
-const temp1 = new taskModule.Task(1,2,3,4,5,6,7);
-const temp2 = new taskModule.Task("a","s","d","f","g","h","j");
+const temp1 = new taskModule.Task(
+    "test1",
+    "test1",
+    "test1",
+    "test1",
+    "test1",
+    "test1",
+    "test1");
+const temp2 = new taskModule.Task(
+    "test2",
+    "test2",
+    "test2",
+    "test2",
+    "test2",
+    "test2",
+    "test2");
 taskModule.addTask(temp1);   
 taskModule.addTask(temp2);   
-renderAll();
+// renderAll();
 
 //track what "page" user is on to pass to render. ex: if delete on project 1, re-render object list with project 1 filter
 // renderAll();
+
+

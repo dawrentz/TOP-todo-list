@@ -1,11 +1,32 @@
 //renderAll.js
 
+//imports
 import taskModule from "./taskModule";
-const contentElement = document.querySelector("#content");
 
+//declarations
+const contentElement = document.querySelector("#content");
+const projectsListElement = document.querySelector("#projects-list");
+
+//=============================================================
+//functions
+//=============================================================
 function clearContent() {
     contentElement.innerHTML = "";
 }
+
+//render projects list for sidebar selection
+function renderProjectsList() {
+    projectsListElement.innerHTML = "";
+    let tempProjectList = taskModule.updateProjectsList();
+
+     tempProjectList.forEach((project) => {
+        const tempLi = document.createElement("li");
+        tempLi.textContent = project;
+        projectsListElement.appendChild(tempLi);
+     });
+
+}
+
 
 //add the default "add task" card
 export function defaultTodo() {
@@ -30,17 +51,17 @@ export function defaultTodo() {
         // Create a new task with the input values
         const temp = new taskModule.Task(...inputValues);
         taskModule.addTask(temp);
-
+        
         renderAll();
     });
 }
-
 
 //add all current tasks card to page (respects filter)
 export default function renderAll() {
     clearContent();
     defaultTodo();
-
+    renderProjectsList();
+    
     taskModule.tasks.forEach(task => {
         
         //create DOM elements
@@ -54,13 +75,13 @@ export default function renderAll() {
         newTodoCard.appendChild(newTodoTemplateClone);
 
         const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
-
         
+        //create array of user inputs to update DOM
         const taskPropArray = [];
         for(const prop in task) {
             taskPropArray.push(task[prop]);
         }
-        //remove id
+        //remove id (internal only)
         taskPropArray.pop();
         
         //loop through user info to 
