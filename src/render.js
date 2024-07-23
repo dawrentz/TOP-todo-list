@@ -10,6 +10,8 @@ const projectsListElement = document.querySelector("#projects-list");
 //=============================================================
 //functions
 //=============================================================
+
+//clear page for re-render
 function clearContent() {
     contentElement.innerHTML = "";
 }
@@ -24,12 +26,11 @@ function renderProjectsList() {
         tempLi.textContent = project;
         projectsListElement.appendChild(tempLi);
      });
-
 }
 
 
-//add the default "add task" card
-export function defaultTodo() {
+//add the default "add task" card to page
+function defaultTodo() {
     //create DOM elements
     const defaultTodoCard = document.createElement("div");
     defaultTodoCard.classList.add("defaultTodoCard");
@@ -56,7 +57,7 @@ export function defaultTodo() {
     });
 }
 
-//add all current tasks card to page (respects filter)
+//add all current tasks card to page (needs to respect future filter)
 export default function renderAll() {
     clearContent();
     defaultTodo();
@@ -67,6 +68,8 @@ export default function renderAll() {
         //create DOM elements
         const newTodoCard = document.createElement("div");
         newTodoCard.classList.add("newTodoCard");
+        //link idNum for later edit functions
+        newTodoCard.id = task._idNum;
         contentElement.appendChild(newTodoCard);
         
         //use html template for card
@@ -88,27 +91,5 @@ export default function renderAll() {
         allNewTodoLines.forEach((line, index) => {
             line.textContent = taskPropArray[index];
         });
-
-
-
-
     });
-
-    
-
-
-
-    // //collect all form inputs and pass values to task onstructor
-    // const allInputs = newTodoCard.querySelectorAll("input");
-    
-    // const todoSubmitBtn = newTodoCard.querySelector("#todo-sub-btn");
-    // todoSubmitBtn.addEventListener("click", () => {
-    //     // Create an array of input values
-    //     const inputValues = Array.from(allInputs).map(input => input.value);
-        
-    //     // Create a new task with the input values
-    //     const temp = new taskClass(...inputValues);
-    //     addTaskFunc(temp);
-    //     });
-
 }

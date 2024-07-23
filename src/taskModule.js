@@ -37,7 +37,7 @@ const taskModule = (function() {
         //need delete project function
 
         //testing
-        console.log(_projectsListArray);
+        // console.log(_projectsListArray);
 
         return _projectsListArray;
     }
