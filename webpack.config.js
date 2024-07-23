@@ -8,6 +8,7 @@ module.exports = {
         taskModule: "./src/taskModule.js",
         render: "./src/render.js",
         filterTab: "./src/filterTab.js",
+        eventListeners: "./src/eventListeners.js"
     },
     output: {
         filename: "[name].bundle.js",

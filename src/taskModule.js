@@ -1,11 +1,11 @@
 //taskModule.js
 
+//should this be a class? need change when add memory?
 const taskModule = (function() {
     //declarations
     const tasks = [];
     let _idNum = 0;
-    const _projectsListArray = ["all"];
-
+    
     //classes
     class Task {
         constructor(title, project, descript, dueDate, priority, notes, checkList) {
@@ -19,27 +19,27 @@ const taskModule = (function() {
             this._idNum = _idNum++;
         }
     }
-
+    
     //functions
     function addTask(task) {
         tasks.push(task);
         //testing
         // console.table(tasks);
     }
-
+    
     function updateProjectsList() {
+        const projectsListArray = ["all"];
         tasks.forEach((task) => {
-            if (!_projectsListArray.includes(task.project)) {
-                _projectsListArray.push(task.project);
-           }
-           
+            if (!projectsListArray.includes(task.project)) {
+                projectsListArray.push(task.project);
+           }           
         });
-        //need delete project function
+        //need delete project function - what?
 
         //testing
-        // console.log(_projectsListArray);
+        // console.log(projectsListArray);
 
-        return _projectsListArray;
+        return projectsListArray;
     }
 
     return {

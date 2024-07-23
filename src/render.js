@@ -2,6 +2,7 @@
 
 //imports
 import taskModule from "./taskModule";
+import eventModule from "./eventListeners";
 
 //declarations
 const contentElement = document.querySelector("#content");
@@ -16,74 +17,75 @@ function clearContent() {
     contentElement.innerHTML = "";
 }
 
+//tool to help build DOM elements
+function appendElementWithClass(elementType, className, appendHere, clone) {
+    const tempElement = document.createElement(elementType);
+    tempElement.classList.add(className);
+    appendHere.appendChild(tempElement);
+    tempElement.appendChild(clone);
+    return tempElement;
+}
+
 //render projects list for sidebar selection
 function renderProjectsList() {
     projectsListElement.innerHTML = "";
-    let tempProjectList = taskModule.updateProjectsList();
+    const tempProjectList = taskModule.updateProjectsList();
 
-     tempProjectList.forEach((project) => {
+    tempProjectList.forEach((project) => {
         const tempLi = document.createElement("li");
         tempLi.textContent = project;
         projectsListElement.appendChild(tempLi);
-     });
-}
+    });
 
+    //collect project li's for eventListener
+    const allProjectLIs = document.querySelectorAll("#projects-list li");
+    console.log(allProjectLIs);
+
+    //new EL goes here
+    eventModule.addELtoProjectLI(allProjectLIs);
+
+}
 
 //add the default "add task" card to page
 function defaultTodo() {
     //create DOM elements
-    const defaultTodoCard = document.createElement("div");
-    defaultTodoCard.classList.add("defaultTodoCard");
-    contentElement.appendChild(defaultTodoCard);
-    
     //use html template for form
     const todoTemplate = document.querySelector("#default-todo");
     const todoTemplateClone = document.importNode(todoTemplate.content, true);
-    defaultTodoCard.appendChild(todoTemplateClone);
+    const defaultTodoCard = appendElementWithClass("div", "defaultTodoCard", contentElement, todoTemplateClone);
     
-    //collect all form inputs and pass values to task onstructor
-    const allInputs = defaultTodoCard.querySelectorAll("input");
-    
+    //collect all form inputs and pass values to eventListener/task constructor
+    const allInputs = defaultTodoCard.querySelectorAll("#default-todo-form input");    
     const todoSubmitBtn = defaultTodoCard.querySelector("#todo-sub-btn");
-    todoSubmitBtn.addEventListener("click", () => {
-        // Create an array of input values
-        const inputValues = Array.from(allInputs).map(input => input.value);
-        
-        // Create a new task with the input values
-        const temp = new taskModule.Task(...inputValues);
-        taskModule.addTask(temp);
-        
-        renderAll();
-    });
+
+    eventModule.addELtoDefSubBtn(allInputs, todoSubmitBtn);
 }
 
 //add all current tasks card to page (needs to respect future filter)
-export default function renderAll() {
+export default function renderAll(taskList) {
     clearContent();
     defaultTodo();
     renderProjectsList();
     
-    taskModule.tasks.forEach(task => {
+    taskList.forEach(task => {
         
         //create DOM elements
-        const newTodoCard = document.createElement("div");
-        newTodoCard.classList.add("newTodoCard");
-        //link idNum for later edit functions
-        newTodoCard.id = task._idNum;
-        contentElement.appendChild(newTodoCard);
-        
         //use html template for card
         const newTodoTemplate = document.querySelector("#new-todo");
         const newTodoTemplateClone = document.importNode(newTodoTemplate.content, true);
-        newTodoCard.appendChild(newTodoTemplateClone);
-
-        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
+        const newTodoCard = appendElementWithClass("div", "newTodoCard", contentElement, newTodoTemplateClone);
+        //link idNum for later edit functions
+        newTodoCard.id = task._idNum;
         
         //create array of user inputs to update DOM
         const taskPropArray = [];
         for(const prop in task) {
             taskPropArray.push(task[prop]);
         }
+
+        //collect all new data fields for quick populating 
+        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
+        
         //remove id (internal only)
         taskPropArray.pop();
         
