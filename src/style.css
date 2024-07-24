@@ -15,15 +15,9 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     align-content: start;
-    /* grid-template-columns: auto; */
     gap: 1rem;
   
     margin-bottom: 2rem;
-
-    * {
-        /* max-width: 15rem; */
-        /* max-height: fit-content; */
-    }
 
 }
 
@@ -39,8 +33,5 @@ body {
     outline: black solid 1px;
 
     max-width: 100%;
-
-    
-
 
 }

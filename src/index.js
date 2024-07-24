@@ -4,19 +4,8 @@
 import "./reset.css";
 import "./style.css";
 import renderAll from "./render.js";
-import taskModule from "./taskModule";
-import filterTab from "./filterTab.js";
-//track what "page" user is on to pass to render. ex: if delete on project 1, re-render object list with project 1 filter
-//init to "all", pass to renderAll
-//eventListeners on sidebar li's (edit render.js) that update the current tab selection
-//need do all in render? kinda makes sense
-//make filter.js? similar to the 
-
-//DOM cache
-// const contentElement = document.querySelector("#content");
-
-console.log("filterTab ID from index" + filterTab.id); // Should be the same across all imports
-
+import * as taskModule from "./taskModule.js";
+import * as filterTab from "./filterTab.js";
 
 
 //testing
@@ -50,12 +39,5 @@ taskModule.addTask(temp3);
 
 
 //initialize
-renderAll(taskModule.tasks);
-//and then render all of list (need memory)
-
-//testing
-filterTab.filterTaskListProject();
-
-import eventModule from "./eventListeners.js";
-// eventModule.test();
-
+//set currentTab to "all" on boot?
+renderAll(filterTab.filterTaskListProject());

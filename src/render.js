@@ -1,8 +1,8 @@
 //renderAll.js
 
 //imports
-import taskModule from "./taskModule";
-import eventModule from "./eventListeners";
+import * as taskModule from "./taskModule.js";
+import * as eventModule from "./eventListeners.js";
 
 //declarations
 const contentElement = document.querySelector("#content");
@@ -39,7 +39,6 @@ function renderProjectsList() {
 
     //collect project li's for eventListener
     const allProjectLIs = document.querySelectorAll("#projects-list li");
-    console.log(allProjectLIs);
 
     //new EL goes here
     eventModule.addELtoProjectLI(allProjectLIs);
