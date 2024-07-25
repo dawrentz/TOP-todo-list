@@ -11,6 +11,14 @@ body {
     grid-column: 1 / -1;
 }
 
+#projects-list {
+    margin-left: 2rem;
+    list-style-type: none;
+    list-style-position: inside;
+
+}
+
+
 #content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -25,6 +33,10 @@ body {
     background-color: white;
     padding: 0.5rem;
     outline: black solid 1px;
+}
+
+.priority-input {
+    appearance: auto;
 }
 
 .newTodoCard {

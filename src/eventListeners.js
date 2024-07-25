@@ -8,8 +8,17 @@ import * as filterTab from "./filterTab.js";
 export function addELtoDefSubBtn(inputs, btn) {
     btn.addEventListener("click", () => {
         // Create an array of input values
-        const inputValues = Array.from(inputs).map(input => input.value);
+        const inputValues = [];
         
+        inputs.forEach((input) => {
+            if(input.type === "radio" && input.checked) {
+                inputValues.push(input.value);
+            } 
+            else if (input.type !== "radio") {
+                inputValues.push(input.value);
+            }
+        });
+
         // Create a new Task with the inputValues array
         const temp = new taskModule.Task(...inputValues);
         taskModule.addTask(temp);

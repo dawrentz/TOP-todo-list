@@ -28,6 +28,7 @@ function appendElementWithClass(elementType, className, appendHere, clone) {
 
 //render projects list for sidebar selection
 function renderProjectsList() {
+    //may not want to delete all projects (on last delete, user may want to keep the project catergory) 
     projectsListElement.innerHTML = "";
     const tempProjectList = taskModule.updateProjectsList();
 
@@ -40,9 +41,7 @@ function renderProjectsList() {
     //collect project li's for eventListener
     const allProjectLIs = document.querySelectorAll("#projects-list li");
 
-    //new EL goes here
     eventModule.addELtoProjectLI(allProjectLIs);
-
 }
 
 //add the default "add task" card to page
@@ -54,7 +53,7 @@ function defaultTodo() {
     const defaultTodoCard = appendElementWithClass("div", "defaultTodoCard", contentElement, todoTemplateClone);
     
     //collect all form inputs and pass values to eventListener/task constructor
-    const allInputs = defaultTodoCard.querySelectorAll("#default-todo-form input");    
+    const allInputs = defaultTodoCard.querySelectorAll("#default-todo-form input");
     const todoSubmitBtn = defaultTodoCard.querySelector("#todo-sub-btn");
 
     eventModule.addELtoDefSubBtn(allInputs, todoSubmitBtn);

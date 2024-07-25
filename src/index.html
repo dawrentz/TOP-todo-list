@@ -45,19 +45,37 @@
                 </div>
                 <div class="form-line">
                     <input
-                    type="text"
+                    type="date"
                     name="due-date"
                     id="due-date-input"
-                    placeholder="due date"
-                    value="due">
+                    placeholder="due date">
+                    <!-- value="due" -->
                 </div>
                 <div class="form-line" >
+                    <label for="priority-input-low">low</label>
                     <input
-                    type="text"
+                    type="radio"
                     name="priority"
-                    id="priority-input"
-                    placeholder="priority"
-                    value="priority">
+                    class="priority-input"
+                    id="priority-input-low"
+                    value="low">
+
+                    <label for="priority-input-med">med</label>
+                    <input
+                    type="radio"
+                    name="priority"
+                    class="priority-input"
+                    id="priority-input-med"
+                    value="med">
+                    
+                    <label for="priority-input-high">high</label>
+                    <input
+                    type="radio"
+                    name="priority"
+                    class="priority-input"
+                    id="priority-input-high"
+                    value="high"
+                    checked>
                 </div>
                 <div class="form-line" >
                     <input

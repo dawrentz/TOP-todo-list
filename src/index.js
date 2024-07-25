@@ -1,5 +1,7 @@
 //index.js
 
+//currently adding proper inputs to form (date, priority. text area)
+
 //imports
 import "./reset.css";
 import "./style.css";
@@ -41,3 +43,5 @@ taskModule.addTask(temp3);
 //initialize
 //set currentTab to "all" on boot?
 renderAll(filterTab.filterTaskListProject());
+
+
