@@ -25,7 +25,7 @@
                     name="title"
                     id="title-input"
                     placeholder="task title"
-                    value="title">
+                    value="demoTitle">
                 </div>
                 <div class="form-line" >
                     <input
@@ -33,7 +33,7 @@
                     name="project"
                     id="project-input"
                     placeholder="project"
-                    value="project">
+                    value="demoProject">
                 </div>
                 <div class="form-line" >
                     <input
@@ -41,7 +41,7 @@
                     name="description"
                     id="description-input"
                     placeholder="description"
-                    value="description">
+                    value="demoDescription">
                 </div>
                 <div class="form-line">
                     <input
@@ -49,9 +49,9 @@
                     name="due-date"
                     id="due-date-input"
                     placeholder="due date">
-                    <!-- value="due" -->
                 </div>
                 <div class="form-line" >
+                    <label>Priority: </label>
                     <label for="priority-input-low">low</label>
                     <input
                     type="radio"
@@ -83,16 +83,46 @@
                     name="notes"
                     id="notes-input"
                     placeholder="notes"
-                    value="notes">
+                    value="demoNotes">
                 </div>
-                <div class="form-line">
-                    <input
-                    type="text"
-                    name="check-list"
-                    id="check-list-input"
-                    placeholder="check list"
-                    value="check">
+                <label>checklist:</label>
+
+                <div class="checklist-line-form-container">
+                    <div class="checklist-line">
+                        <div class="form-line">
+                            <!-- use dynamic id? #1, #2, #3... -->
+                            <input
+                            type="text"
+                            name="check-list"
+                            class="check-list-input"
+                            placeholder="check list"
+                            value="demoCheck1">
+                        </div>
+                        <!-- add checklist item button -->
+                        <button type="button">add another item</button>
+                    </div>
                 </div>
+
+                <!-- temp extra check line for js logic -->
+                <div class="checklist-line-form-container">
+                    <div class="checklist-line">
+                        <div class="form-line">
+                            <!-- use dynamic id? #1, #2, #3... -->
+                            <input
+                            type="text"
+                            name="check-list"
+                            class="check-list-input"
+                            placeholder="check list"
+                            value="demoCheck2">
+                        </div>
+                        <!-- add checklist item button -->
+                        <button type="button">add another item</button>
+                    </div>
+                </div>
+
+                <!-- temp additional checklist line to get js to recognize multiple checklist items -->
+
+
             </form>
             <button type="submit" id="todo-sub-btn">add task</button>
         </template>
@@ -117,8 +147,10 @@
             <div class="todo-card-line">notes: 
                 <span class="notes-line"></span>
             </div>
-            <div class="todo-card-line">check: 
-                <span class="check-line"></span>
+            <div class="check-list-container">
+                <div class="todo-card-line">check:
+                    <ol class="checklist-list"></ol>
+                </div>
             </div>
         </template>
 </body>

@@ -60,13 +60,14 @@ function defaultTodo() {
 }
 
 //add all current tasks card to page (needs to respect future filter)
+//for more robust editing, it would be wise to link individual task lines to their individual obj properties (allow for restructuring of DOM). 
+    //right now it all just in the same order as the template and you just loop through the data, adding as you go
 export default function renderAll(taskList) {
     clearContent();
     defaultTodo();
     renderProjectsList();
     
     taskList.forEach(task => {
-        
         //create DOM elements
         //use html template for card
         const newTodoTemplate = document.querySelector("#new-todo");
@@ -80,16 +81,26 @@ export default function renderAll(taskList) {
         for(const prop in task) {
             taskPropArray.push(task[prop]);
         }
-
-        //collect all new data fields for quick populating 
-        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
-        
         //remove id (internal only)
         taskPropArray.pop();
-        
-        //loop through user info to 
+        //serperate checkList array from properties array
+        const checkListArray = taskPropArray.pop();
+
+        //collect  all new data fields elements for quick populating
+        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
+        const checkListDOMelm = newTodoCard.querySelector(".checklist-list");
+    
+        //loop through user info and populate corresponding field to (non-checklist)
         allNewTodoLines.forEach((line, index) => {
             line.textContent = taskPropArray[index];
         });
+        
+        //loop through user info and populate corresponding field to (checklist)
+        checkListArray.forEach((listItem) => {
+            const tempLi = document.createElement('li');
+            tempLi.textContent = listItem;
+            checkListDOMelm.appendChild(tempLi);
+        });
+        
     });
 }

@@ -13,6 +13,7 @@ export class Task {
         this.priority = priority;
         this.notes = notes;
         this.checkList = checkList;
+        //hide id with accessor funciton?
         this._idNum = _idNum++;
     }
 }
