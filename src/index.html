@@ -15,120 +15,90 @@
         </div>
     </div>
     <div id="content"></div>
-        <!-- had to move templates out of .content for clearPage() -->
-        <template id="default-todo">
-            add new 
-            <form action="#" method="post" id="default-todo-form">
-                <div class="form-line" >
-                    <input
-                    type="text"
-                    name="title"
-                    id="title-input"
-                    placeholder="task title"
-                    value="demoTitle">
-                </div>
-                <div class="form-line" >
-                    <input
-                    type="text"
-                    name="project"
-                    id="project-input"
-                    placeholder="project"
-                    value="demoProject">
-                </div>
-                <div class="form-line" >
-                    <input
-                    type="text"
-                    name="description"
-                    id="description-input"
-                    placeholder="description"
-                    value="demoDescription">
-                </div>
-                <div class="form-line">
-                    <input
-                    type="date"
-                    name="due-date"
-                    id="due-date-input"
-                    placeholder="due date">
-                </div>
-                <div class="form-line" >
-                    <label>Priority: </label>
-                    <label for="priority-input-low">low</label>
-                    <input
-                    type="radio"
-                    name="priority"
-                    class="priority-input"
-                    id="priority-input-low"
-                    value="low">
 
-                    <label for="priority-input-med">med</label>
-                    <input
-                    type="radio"
-                    name="priority"
-                    class="priority-input"
-                    id="priority-input-med"
-                    value="med">
-                    
-                    <label for="priority-input-high">high</label>
-                    <input
-                    type="radio"
-                    name="priority"
-                    class="priority-input"
-                    id="priority-input-high"
-                    value="high"
-                    checked>
-                </div>
-                <div class="form-line" >
-                    <input
-                    type="text"
-                    name="notes"
-                    id="notes-input"
-                    placeholder="notes"
-                    value="demoNotes">
-                </div>
+    <!-- templates -->
+    <!-- had to move templates out of .content for clearPage() -->
+    <template id="default-todo">
+        add new 
+        <form action="#" method="post" id="default-todo-form">
+            <div class="form-line" >
+                <input
+                type="text"
+                name="title"
+                id="title-input"
+                placeholder="task title"
+                value="demoTitle">
+            </div>
+            <div class="form-line" >
+                <input
+                type="text"
+                name="project"
+                id="project-input"
+                placeholder="project"
+                value="demoProject">
+            </div>
+            <div class="form-line" >
+                <input
+                type="text"
+                name="description"
+                id="description-input"
+                placeholder="description"
+                value="demoDescription">
+            </div>
+            <div class="form-line">
+                <input
+                type="date"
+                name="due-date"
+                id="due-date-input"
+                placeholder="due date">
+            </div>
+            <div class="form-line" >
+                <label>Priority: </label>
+                <label for="priority-input-low">low</label>
+                <input
+                type="radio"
+                name="priority"
+                class="priority-input"
+                id="priority-input-low"
+                value="low">
+
+                <label for="priority-input-med">med</label>
+                <input
+                type="radio"
+                name="priority"
+                class="priority-input"
+                id="priority-input-med"
+                value="med">
+                
+                <label for="priority-input-high">high</label>
+                <input
+                type="radio"
+                name="priority"
+                class="priority-input"
+                id="priority-input-high"
+                value="high"
+                checked>
+            </div>
+            <div class="form-line" >
+                <input
+                type="text"
+                name="notes"
+                id="notes-input"
+                placeholder="notes"
+                value="demoNotes">
+            </div>
+            <div id="checklist-line-form-container">
                 <label>checklist:</label>
-
-                <div class="checklist-line-form-container">
-                    <div class="checklist-line">
-                        <div class="form-line">
-                            <!-- use dynamic id? #1, #2, #3... -->
-                            <input
-                            type="text"
-                            name="check-list"
-                            class="check-list-input"
-                            placeholder="check list"
-                            value="demoCheck1">
-                        </div>
-                        <!-- add checklist item button -->
-                        <button type="button">add another item</button>
-                    </div>
-                </div>
-
-                <!-- temp extra check line for js logic -->
-                <div class="checklist-line-form-container">
-                    <div class="checklist-line">
-                        <div class="form-line">
-                            <!-- use dynamic id? #1, #2, #3... -->
-                            <input
-                            type="text"
-                            name="check-list"
-                            class="check-list-input"
-                            placeholder="check list"
-                            value="demoCheck2">
-                        </div>
-                        <!-- add checklist item button -->
-                        <button type="button">add another item</button>
-                    </div>
-                </div>
-
-                <!-- temp additional checklist line to get js to recognize multiple checklist items -->
-
-
-            </form>
-            <button type="submit" id="todo-sub-btn">add task</button>
-        </template>
+                <!-- js adds checklist-line template -->
+                <!-- add item button just gets moved down -->
+            </div> 
+            <button type="button" id="default-add-check-list-item-button">add list item</button>
+        </form>
+        <button type="submit" id="todo-sub-btn">add task</button>
+    </template>
 
         <template id="new-todo">
-            new  card
+            new card
             <div class="todo-card-line">title: 
                 <span class="title-line"></span>
             </div>
@@ -152,6 +122,17 @@
                     <ol class="checklist-list"></ol>
                 </div>
             </div>
-        </template>
+    </template>
+
+    <template id="checklist-line-template">
+        <input
+        type="text"
+        name="check-list"
+        class="check-list-input"
+        placeholder="check list"
+        value="demoCheck1">
+        <button type="button" class="checklist-item-del-btn">X</button>
+    </template>
+
 </body>
 </html>

@@ -1,19 +1,22 @@
 //eventsListeners.js
 
 import * as taskModule from "./taskModule.js";
-import renderAll from "./render.js";
+import * as renderModule  from "./render.js";
 import * as filterTab from "./filterTab.js";
 
 //on submit button click, add new task from user inputs and re-render
-export function addELtoDefSubBtn(inputs, btn) {
+export function addELtoDefSubBtn(btn) {
     btn.addEventListener("click", () => {
+        //collect all form inputs (including checklist as an array) and pass values to eventListener/task constructor
+        const allInputs = document.querySelectorAll("#default-todo-form input");
+
         // Create an array of input values
         const inputValues = [];
         const checkListValues = [];
         
         //if a checklist item add to checklist Array
         //then push checklist array to the back of inputValues
-        inputs.forEach((input) => {
+        allInputs.forEach((input) => {
             //pull out radio inputs and return only the checked one's value
             if (
                 input.type === "radio" &&
@@ -45,7 +48,7 @@ export function addELtoDefSubBtn(inputs, btn) {
         const temp = new taskModule.Task(...inputValues);
         taskModule.addTask(temp);
 
-        renderAll(filterTab.filterTaskListProject());
+        renderModule.renderAll(filterTab.filterTaskListProject());
     });
 }
 
@@ -55,7 +58,20 @@ export function addELtoProjectLI(liArray) {
     liArray.forEach((li) => {
         li.addEventListener("click", () => {
             filterTab.updateCurrentTab(li.textContent);
-            renderAll(filterTab.filterTaskListProject());
+            renderModule.renderAll(filterTab.filterTaskListProject());
         });
+    });
+}
+
+export function addELtoNewCheckListItemBtn(btn) {
+    btn.addEventListener("click", () => {
+        renderModule.addCheckListLine();
+
+    });
+}
+
+export function addELtoChecklistLineDelBtn(btn) {
+    btn.addEventListener("click", () => {
+        btn.parentElement.remove();
     });
 }
