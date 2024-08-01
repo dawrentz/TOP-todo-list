@@ -9,6 +9,7 @@ export function addELtoDefSubBtn(btn) {
     btn.addEventListener("click", () => {
         //collect all form inputs (including checklist as an array) and pass values to eventListener/task constructor
         const allInputs = document.querySelectorAll("#default-todo-form input");
+        const textareaInput = document.querySelector("#notes-input").value;
 
         // Create an array of input values
         const inputValues = [];
@@ -41,7 +42,9 @@ export function addELtoDefSubBtn(btn) {
                     inputValues.push(input.value);
             }
         });
-        //tack on check list array to all inputs array            
+        
+        //tack on notes input, then check list array to all inputs array            
+        inputValues.push(textareaInput);
         inputValues.push(checkListValues);
 
         // Create a new Task with the inputValues array
