@@ -3,6 +3,8 @@
 //imports
 import * as taskModule from "./taskModule.js";
 import * as eventModule from "./eventListeners.js";
+import { format } from "date-fns";
+
 
 //declarations
 const contentElement = document.querySelector("#content");
@@ -17,7 +19,7 @@ function clearContent() {
     contentElement.innerHTML = "";
 }
 
-//tool to help build DOM elements
+//tool to help build DOM elements with templates
 function appendElementWithClass(elementType, className, appendHere, clone) {
     const tempElement = document.createElement(elementType);
     tempElement.classList.add(className);
@@ -45,9 +47,6 @@ function renderProjectsList() {
 }
 
 export function addCheckListLine() {
-    //select and delet
-
-
     //create DOM for checklist (inside of defaultTodoCard)
     //using seperate template to allow for dynnamic multi-line check list items
     //select checklist line container first
@@ -62,7 +61,7 @@ export function addCheckListLine() {
     eventModule.addELtoChecklistLineDelBtn(checklistLineDelBtn);
     
 }
-
+    
 //add the default "add task" card to page
 
 function defaultTodo() {
@@ -131,6 +130,15 @@ export function renderAll(taskList) {
         //loop through user info and populate corresponding field to (non-checklist)
         allNewTodoLines.forEach((line, index) => {
             line.textContent = taskPropArray[index];
+
+            //allows for blank due date, may require a due date in the future
+            if (line.className === "due-line" && line.textContent !== "") {
+                const dateValue = new Date(line.textContent);
+                const utcDate = new Date(dateValue.getUTCFullYear(), dateValue.getUTCMonth(), dateValue.getUTCDate());
+                console.log(utcDate);
+                line.textContent = format(utcDate, "E, MMM do, yyyy");
+            }
+
         });
         
         //loop through user info and populate corresponding field to (checklist)
