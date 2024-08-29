@@ -123,4 +123,7 @@ export function renderAll(taskList) {
             checkListDOMelm.appendChild(tempLi);
         });
     });
+
+    //test
+    // console.log(taskList);
 }

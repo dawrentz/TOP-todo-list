@@ -28,8 +28,8 @@ export function updateProjectsList() {
     //insures that "all" is an available "project", then adds new projects
     const projectsListArray = ["all"];
     tasks.forEach((task) => {
-        if (!projectsListArray.includes(task.project)) {
-            projectsListArray.push(task.project);
+        if (!projectsListArray.includes(task["project-input"])) {
+            projectsListArray.push(task["project-input"]);
         }           
     });
 

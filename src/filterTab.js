@@ -13,14 +13,22 @@ export function updateCurrentTab(tab) {
 export function filterTaskListProject() {
     let filteredTaskList = [];
     
+    
     //if user selection is "all", show entire list
     if (_currentTab === "all") {
         filteredTaskList = taskModule.tasks;
     } 
+    //test===============
+    // _currentTab = "dueToday";
+    else if (_currentTab === "dueToday") {
+        console.log("test");
+    }
+
+
     //filter based on project
     else {
         taskModule.tasks.forEach((task) => {
-            if (task.project === _currentTab) {
+            if (task["project-input"] === _currentTab) {
                 filteredTaskList.push(task);
             };
         });
