@@ -13,34 +13,41 @@ import * as filterTab from "./filterTab.js";
 
 
 //testing
-const temp1 = new taskModule.Task(
-    "title1",
-    "project1",
-    "description1",
-    "2024-10-04",
-    "low",
-    "notes1",
-    ["check1"]);
-taskModule.addTask(temp1);   
-const temp2 = new taskModule.Task(
-    "title2",
-    "project2",
-    "description2",
-    "2024-11-26",
-    "med",
-    "notes2",
-    ["check2"]);
-taskModule.addTask(temp2);   
-const temp3 = new taskModule.Task(
-    "title3",
-    "project2",
-    "description3",
-    "2024-12-25",
-    "high",
-    "notes3",
-    ["check3", "test"]);
-taskModule.addTask(temp3);   
 
+const test1obj = {
+    "title-input": "title1",
+    "project-input": "project1",
+    "description-input": "description1",
+    "due-date-input": "2024-10-04",
+    "priority-input": "low",
+    "notes-input": "notes1",
+    "check-list-inputs": ["check1"],
+};
+const test2obj = {
+    "title-input": "title2",
+    "project-input": "project2",
+    "description-input": "description2",
+    "due-date-input": "2024-11-26",
+    "priority-input": "low",
+    "notes-input": "notes2",
+    "check-list-inputs": ["check2"],
+};
+const test3obj = {
+    "title-input": "title3",
+    "project-input": "project3",
+    "description-input": "description3",
+    "due-date-input": "2024-12-25",
+    "priority-input": "low",
+    "notes-input": "notes3",
+    "check-list-inputs": ["check3", "test"],
+};
+
+const temp1 = new taskModule.Task(test1obj);
+const temp2 = new taskModule.Task(test2obj);
+const temp3 = new taskModule.Task(test3obj);
+taskModule.addTask(temp1);   
+taskModule.addTask(temp2);   
+taskModule.addTask(temp3);   
 
 //initialize
 //set currentTab to "all" on boot?

@@ -11,44 +11,33 @@ export function addELtoDefSubBtn(btn) {
         const allInputs = document.querySelectorAll("#default-todo-form input");
         const textareaInput = document.querySelector("#notes-input").value;
 
-        // Create an array of input values
-        const inputValues = [];
-        const checkListValues = [];
-        
-        //if a checklist item add to checklist Array
-        //then push checklist array to the back of inputValues
+        const inputValuesObj = {};
+        const checkListValuesForObj = [];
+
+        //identify all user inputs for custom populating of todo cards
         allInputs.forEach((input) => {
             //pull out radio inputs and return only the checked one's value
-            if (
-                input.type === "radio" &&
-                input.checked 
-            ) {
-                inputValues.push(input.value);
+            if (input.type === "radio" && input.checked ) {
+                inputValuesObj["priority-input"] = input.value;
             } 
-
             //pull out all check list input values for seperate array
             //only include if not blank 
-            else if (
-                input.getAttribute("class") === "check-list-input"  &&
-                input.value !== "" 
-            ) {
-                checkListValues.push(input.value);
+            else if (input.getAttribute("class") === "check-list-input" && input.value !== "" ) {
+                checkListValuesForObj.push(input.value);
             }
-
             //everything else gets thrown into inputVales array
-            else if (
-                input.getAttribute("class") !== "check-list-input" &&
-                input.type !== "radio" ) {
-                    inputValues.push(input.value);
+            else if (input.getAttribute("class") !== "check-list-input" && input.type !== "radio" ) {
+                inputValuesObj[input.id] = input.value;
             }
         });
-        
-        //tack on notes input, then check list array to all inputs array            
-        inputValues.push(textareaInput);
-        inputValues.push(checkListValues);
+
+        //include notes and checklist as array in the inputsObj
+        //have to do this seperately because these two aren't "inputs" that can be easily looped through
+        inputValuesObj["notes-input"] = textareaInput;
+        inputValuesObj["check-list-inputs"] = checkListValuesForObj;
 
         // Create a new Task with the inputValues array
-        const temp = new taskModule.Task(...inputValues);
+        const temp = new taskModule.Task(inputValuesObj);
         taskModule.addTask(temp);
 
         renderModule.renderAll(filterTab.filterTaskListProject());

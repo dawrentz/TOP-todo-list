@@ -5,7 +5,6 @@ import * as taskModule from "./taskModule.js";
 import * as eventModule from "./eventListeners.js";
 import { format } from "date-fns";
 
-
 //declarations
 const contentElement = document.querySelector("#content");
 const projectsListElement = document.querySelector("#projects-list");
@@ -59,7 +58,6 @@ export function addCheckListLine() {
     const checklistLineDelBtn = newCheckListLine.querySelector("button");
 
     eventModule.addELtoChecklistLineDelBtn(checklistLineDelBtn);
-    
 }
     
 //add the default "add task" card to page
@@ -74,8 +72,6 @@ function defaultTodo() {
     //initialize checklist line and button
     addCheckListLine();
     
-    
-
     const todoSubmitBtn = defaultTodoCard.querySelector("#todo-sub-btn");
     
     //add eventListener for add check list item (creates another checklist item line with button)
@@ -84,21 +80,8 @@ function defaultTodo() {
 
     //event listener that adds new task on "add task" click
     eventModule.addELtoDefSubBtn(todoSubmitBtn);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
-//add all current tasks card to page (needs to respect future filter)
-//for more robust editing, it would be wise to link individual task lines to their individual obj properties (allow for restructuring of DOM). 
-    //right now it all just in the same order as the template and you just loop through the data, adding as you go
 export function renderAll(taskList) {
     clearContent();
     defaultTodo();
@@ -112,41 +95,32 @@ export function renderAll(taskList) {
         const newTodoCard = appendElementWithClass("div", "newTodoCard", contentElement, newTodoTemplateClone);
         //link idNum for later edit functions
         newTodoCard.id = task._idNum;
-        
-        //create array of user inputs to update DOM
-        const taskPropArray = [];
-        for(const prop in task) {
-            taskPropArray.push(task[prop]);
-        }
-        //remove id (internal only)
-        taskPropArray.pop();
-        //serperate checkList array from properties array
-        const checkListArray = taskPropArray.pop();
 
-        //collect  all new data fields elements for quick populating
         const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
         const checkListDOMelm = newTodoCard.querySelector(".checklist-list");
+
+        for(const prop in task) {
+            allNewTodoLines.forEach((line) => {
+                if (line.getAttribute("data-from-input") === prop) {
+                    line.textContent = task[prop];
+                }
+                
+                //allows for blank due date, may require a due date in the future
+                if (prop === "due-date-input" && line.className === "due-line" &&  line.textContent !== "") {
+                    const dateValue = new Date(line.textContent);
+                    const utcDate = new Date(dateValue.getUTCFullYear(), dateValue.getUTCMonth(), dateValue.getUTCDate());
+                    //lowercase styling
+                    line.textContent = format(utcDate, "MMM do, yyyy (E)").toLowerCase();
+                }
+            });
+        }
     
-        //loop through user info and populate corresponding field to (non-checklist)
-        allNewTodoLines.forEach((line, index) => {
-            line.textContent = taskPropArray[index];
-
-            //allows for blank due date, may require a due date in the future
-            if (line.className === "due-line" && line.textContent !== "") {
-                const dateValue = new Date(line.textContent);
-                const utcDate = new Date(dateValue.getUTCFullYear(), dateValue.getUTCMonth(), dateValue.getUTCDate());
-                console.log(utcDate);
-                line.textContent = format(utcDate, "E, MMM do, yyyy");
-            }
-
-        });
-        
-        //loop through user info and populate corresponding field to (checklist)
+        // populate corresponding task obj prop to checklist field
+        const checkListArray = task["check-list-inputs"];
         checkListArray.forEach((listItem) => {
             const tempLi = document.createElement('li');
             tempLi.textContent = listItem;
             checkListDOMelm.appendChild(tempLi);
         });
-        
     });
 }

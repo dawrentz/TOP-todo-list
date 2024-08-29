@@ -5,15 +5,17 @@ let _idNum = 0;
 export const tasks = [];
 
 export class Task {
-    constructor(title, project, descript, dueDate, priority, notes, checkList) {
-        this.title = title;
-        this.project = project;
-        this.descript = descript;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
-        this.checkList = checkList;
-        //hide id with accessor funciton?
+    
+    
+    
+    constructor(obj) {
+        this["description-input"] = obj["description-input"];
+        this["due-date-input"] = obj["due-date-input"];
+        this["notes-input"] = obj["notes-input"];
+        this["priority-input"] = obj["priority-input"];
+        this["project-input"] = obj["project-input"];
+        this["title-input"] = obj["title-input"];
+        this["check-list-inputs"] = obj["check-list-inputs"];
         this._idNum = _idNum++;
     }
 }
