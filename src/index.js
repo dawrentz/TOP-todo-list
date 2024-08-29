@@ -27,7 +27,7 @@ const test2obj = {
     "title-input": "title2",
     "project-input": "project2",
     "description-input": "description2",
-    "due-date-input": "2024-11-26",
+    "due-date-input": "2024-08-29",
     "priority-input": "low",
     "notes-input": "notes2",
     "check-list-inputs": ["check2"],
@@ -36,7 +36,7 @@ const test3obj = {
     "title-input": "title3",
     "project-input": "project3",
     "description-input": "description3",
-    "due-date-input": "2024-12-25",
+    "due-date-input": "2024-08-29",
     "priority-input": "low",
     "notes-input": "notes3",
     "check-list-inputs": ["check3", "test"],
@@ -51,28 +51,28 @@ taskModule.addTask(temp3);
 
 
 //date testing
-import { format } from "date-fns";
+// import { format } from "date-fns";
 
-const yesterday = "2024-08-28";
-const today = "2024-08-29";
-const tomorrow = "2024-08-30";
+// const yesterday = "2024-08-28";
+// const today = "2024-08-29";
+// const tomorrow = "2024-08-30";
 
-const daysArray = [];
-daysArray.push(tomorrow);
-daysArray.push(yesterday);
-daysArray.push(today);
+// const daysArray = [];
+// daysArray.push(tomorrow);
+// daysArray.push(yesterday);
+// daysArray.push(today);
 
-console.log(daysArray);
+// console.log(daysArray);
 
 
-const now = format(new Date(), "yyyy-MM-d");
-console.log(now);
+// const now = format(new Date(), "yyyy-MM-d");
+// console.log(now);
 
-daysArray.forEach((day) => {
-    if (day === now) {
-        console.log(day + " is good");
-    }
-});
+// daysArray.forEach((day) => {
+//     if (day === now) {
+//         console.log(day + " is good");
+//     }
+// });
 
 
 

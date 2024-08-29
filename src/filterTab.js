@@ -1,9 +1,13 @@
 //filterTab.js
 
 import * as taskModule from "./taskModule.js";
+import { format } from "date-fns";
+
 
 //init filter to all as default
 let _currentTab = "all";
+//test==========================================================================================
+_currentTab = "dueToday";
 
 export function updateCurrentTab(tab) {
     _currentTab = tab;
@@ -18,10 +22,14 @@ export function filterTaskListProject() {
     if (_currentTab === "all") {
         filteredTaskList = taskModule.tasks;
     } 
-    //test===============
-    // _currentTab = "dueToday";
     else if (_currentTab === "dueToday") {
-        console.log("test");
+        const now = format(new Date(), "yyyy-MM-d");
+
+        taskModule.tasks.forEach((task) => {
+            if (task["due-date-input"] === now) {
+                filteredTaskList.push(task);
+            }
+        });
     }
 
 

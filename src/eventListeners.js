@@ -55,6 +55,13 @@ export function addELtoProjectLI(liArray) {
     });
 }
 
+export function addELtoDueToday(div) {
+    div.addEventListener("click", () => {
+        filterTab.updateCurrentTab("dueToday");
+        renderModule.renderAll(filterTab.filterTaskListProject());
+    });
+}
+
 export function addELtoNewCheckListItemBtn(btn) {
     btn.addEventListener("click", () => {
         renderModule.addCheckListLine();
