@@ -31,7 +31,7 @@ function appendElementWithClass(elementType, className, appendHere, clone) {
 function renderProjectsList() {
     //may not want to delete all projects (on last delete, user may want to keep the project catergory) 
     projectsListElement.innerHTML = "";
-    const tempProjectList = taskModule.updateProjectsList();
+    const tempProjectList = taskModule.updateProjectsList().sort();
     
     tempProjectList.forEach((project) => {
         const tempLi = document.createElement("li");
