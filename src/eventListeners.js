@@ -62,6 +62,13 @@ export function addELtoDueToday(div) {
     });
 }
 
+export function addELtoUpcoming(div) {
+    div.addEventListener("click", () => {
+        filterTab.updateCurrentTab("upcoming");
+        renderModule.renderAll(filterTab.filterTaskListProject());
+    });
+}
+
 export function addELtoNewCheckListItemBtn(btn) {
     btn.addEventListener("click", () => {
         renderModule.addCheckListLine();

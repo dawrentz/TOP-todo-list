@@ -10,15 +10,17 @@ import "./style.css";
 import * as renderModule from "./render.js";
 import * as taskModule from "./taskModule.js";
 import * as filterTab from "./filterTab.js";
+import * as eventModule from "./eventListeners.js";
 
 
 //testing
+import { format } from "date-fns";
 
 const test1obj = {
     "title-input": "title1",
     "project-input": "project1",
     "description-input": "description1",
-    "due-date-input": "2024-10-04",
+    "due-date-input": "2024-12-25",
     "priority-input": "low",
     "notes-input": "notes1",
     "check-list-inputs": ["check1"],
@@ -27,7 +29,7 @@ const test2obj = {
     "title-input": "title2",
     "project-input": "project2",
     "description-input": "description2",
-    "due-date-input": "2024-08-29",
+    "due-date-input": "2024-10-04",
     "priority-input": "low",
     "notes-input": "notes2",
     "check-list-inputs": ["check2"],
@@ -36,9 +38,9 @@ const test3obj = {
     "title-input": "title3",
     "project-input": "project3",
     "description-input": "description3",
-    "due-date-input": "2024-08-29",
+    "due-date-input": format(new Date(), "yyyy-MM-d"),
     "priority-input": "low",
-    "notes-input": "notes3",
+    "notes-input": "due today",
     "check-list-inputs": ["check3", "test"],
 };
 
@@ -51,7 +53,6 @@ taskModule.addTask(temp3);
 
 
 //date testing
-// import { format } from "date-fns";
 
 // const yesterday = "2024-08-28";
 // const today = "2024-08-29";
@@ -79,7 +80,11 @@ taskModule.addTask(temp3);
 
 
 //initialize
-//set currentTab to "all" on boot?
+const dueTodaySidebarDiv = document.querySelector("#due-today-cat");
+const upcomingSidebarDiv = document.querySelector("#upcoming-cat");
+eventModule.addELtoDueToday(dueTodaySidebarDiv);
+eventModule.addELtoUpcoming(upcomingSidebarDiv);
+
 renderModule.renderAll(filterTab.filterTaskListProject());
 
 

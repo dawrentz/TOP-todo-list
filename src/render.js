@@ -41,10 +41,8 @@ function renderProjectsList() {
     
     //collect project li's for eventListener
     const allProjectLIs = document.querySelectorAll("#projects-list li");
-    const dueTodaySidebarDiv = document.querySelector(".sidebar-feature");
     
     eventModule.addELtoProjectLI(allProjectLIs);
-    eventModule.addELtoDueToday(dueTodaySidebarDiv);
 }
 
 export function addCheckListLine() {

@@ -8,8 +8,8 @@
 <body>
     <div id="header"><h1>todoloo</h1></div>
     <div id="sidebar">
-        <div class="sidebar-feature">due today</div>
-        <div class="sidebar-feature">upcoming</div>
+        <div class="sidebar-feature" id="due-today-cat">due today</div>
+        <div class="sidebar-feature" id="upcoming-cat">upcoming</div>
         <div class="sidebar-feature">project
             <ul id="projects-list"></ul>
         </div>
@@ -50,7 +50,8 @@
                 type="date"
                 name="due-date"
                 id="due-date-input"
-                placeholder="due date">
+                placeholder="due date"
+                required>
             </div>
             <div class="form-line" >
                 <label>Priority: </label>
