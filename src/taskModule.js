@@ -1,6 +1,9 @@
 //taskModule.js
 
+//init task ID
 let _idNum = 0;
+//project list outside of updateProject function so it can retain all created projects. User must manually delete project from project list
+const projectsListArray = ["all"];
 
 export const tasks = [];
 
@@ -16,6 +19,7 @@ export class Task {
         this["project-input"] = obj["project-input"];
         this["title-input"] = obj["title-input"];
         this["check-list-inputs"] = obj["check-list-inputs"];
+        //task ID acts as counter giving each task a unique ID (allows cards to be updated after creation)
         this._idNum = _idNum++;
     }
 }
@@ -26,7 +30,6 @@ export function addTask(task) {
 
 export function updateProjectsList() {
     //insures that "all" is an available "project", then adds new projects
-    const projectsListArray = ["all"];
     tasks.forEach((task) => {
         if (!projectsListArray.includes(task["project-input"])) {
             projectsListArray.push(task["project-input"]);
