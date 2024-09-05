@@ -4,7 +4,11 @@ https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 Create todo list app using modules while ultilizing npm/webpack. 
 
 
-eod, 7/26:
-editing html for template of check list input and button
-append in js
-add button function = add another template and same eventlistener
+9/5
+idea:   order cards a-z first always, then by date, then by filter?
+
+bug?:   if no tasks for a project, project deletes from project list (need empty projects? probably)
+
+note:   edit line button needs to adjust for date and priority
+        
+    

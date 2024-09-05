@@ -103,14 +103,15 @@ export function renderAll(taskList) {
         const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
         const checkListDOMelm = newTodoCard.querySelector(".checklist-list");
 
+        
         for(const prop in task) {
             allNewTodoLines.forEach((line) => {
                 if (line.getAttribute("data-from-input") === prop) {
                     line.textContent = task[prop];
                 }
                 
-                //allows for blank due date, may require a due date in the future
-                if (prop === "due-date-input" && line.className === "due-line" &&  line.textContent !== "") {
+                //date styling
+                if (prop === "due-date-input" && line.className === "due-line") {
                     const dateValue = new Date(line.textContent);
                     const utcDate = new Date(dateValue.getUTCFullYear(), dateValue.getUTCMonth(), dateValue.getUTCDate());
                     //lowercase styling
@@ -118,6 +119,16 @@ export function renderAll(taskList) {
                 }
             });
         }
+        
+        //add edit button to each new todo line (not check list)
+        allNewTodoLines.forEach((line) => {
+            const todoLineEditBtn = document.createElement("button");
+            todoLineEditBtn.textContent = "edit";
+            todoLineEditBtn.className = "todo-line-edit-btn";
+            line.parentElement.prepend(todoLineEditBtn);
+
+            eventModule.addELtodoLineEditBtn(todoLineEditBtn, line);
+        });
     
         // populate corresponding task obj prop to checklist field
         const checkListArray = task["check-list-inputs"];
@@ -127,7 +138,4 @@ export function renderAll(taskList) {
             checkListDOMelm.appendChild(tempLi);
         });
     });
-
-    //test
-    // console.log(taskList);
 }

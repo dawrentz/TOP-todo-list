@@ -20,6 +20,7 @@
     <!-- had to move templates out of .content for clearPage() -->
     <template id="default-todo">
         add new 
+        <!-- need remove defaults -->
         <form action="#" method="post" id="default-todo-form">
             <div class="form-line" >
                 <input
@@ -50,28 +51,27 @@
                 type="date"
                 name="due-date"
                 id="due-date-input"
-                placeholder="due date"
+                value="2024-12-31"
                 required>
             </div>
             <div class="form-line" >
                 <label>Priority: </label>
-                <label for="priority-input-low">low</label>
                 <input
                 type="radio"
                 name="priority"
                 class="priority-input"
                 id="priority-input-low"
                 value="low">
+                <label for="priority-input-low">low</label>
 
-                <label for="priority-input-med">med</label>
                 <input
                 type="radio"
                 name="priority"
                 class="priority-input"
                 id="priority-input-med"
                 value="med">
+                <label for="priority-input-med">med</label>
                 
-                <label for="priority-input-high">high</label>
                 <input
                 type="radio"
                 name="priority"
@@ -79,6 +79,7 @@
                 id="priority-input-high"
                 value="high"
                 checked>
+                <label for="priority-input-high">high</label>
             </div>
             <div class="form-line" >
                 <textarea name="notes"
@@ -97,40 +98,46 @@
 
         <template id="new-todo">
             new card
-            <div class="todo-card-line">title: 
+            <div class="todo-card-line">
+                title: 
                 <span 
                 class="title-line" 
                 data-from-input="title-input"></span>
             </div>
-            <div class="todo-card-line">project: 
+            <div class="todo-card-line">
+                project: 
                 <span 
                 class="project-line" 
                 data-from-input="project-input"></span>
             </div>
-            <div class="todo-card-line">description: 
+            <div class="todo-card-line">
+                description: 
                 <span 
                 class="description-line" 
                 data-from-input="description-input"></span>
             </div>
-            <div class="todo-card-line">due: 
+            <div class="todo-card-line">
+                due: 
                 <span 
                 class="due-line" 
                 data-from-input="due-date-input"></span>
             </div>
-            <div class="todo-card-line">priority: 
+            <div class="todo-card-line">
+                priority: 
                 <span 
                 class="priority-line" 
                 data-from-input="priority-input"></span>
             </div>
-            <div class="todo-card-line">notes: 
+            <div class="todo-card-line">
+                notes: 
                 <span 
                 class="notes-line" 
                 data-from-input="notes-input"></span>
             </div>
             <div class="check-list-container">
-                <div class="todo-card-line">check:
+                <div class="todo-card-line">
+                    check:
                     <ol class="checklist-list"></ol>
-                    <!-- need data-from-input? -->
                 </div>
             </div>
     </template>

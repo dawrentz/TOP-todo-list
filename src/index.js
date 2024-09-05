@@ -52,33 +52,6 @@ taskModule.addTask(temp2);
 taskModule.addTask(temp3);   
 
 
-//date testing
-
-// const yesterday = "2024-08-28";
-// const today = "2024-08-29";
-// const tomorrow = "2024-08-30";
-
-// const daysArray = [];
-// daysArray.push(tomorrow);
-// daysArray.push(yesterday);
-// daysArray.push(today);
-
-// console.log(daysArray);
-
-
-// const now = format(new Date(), "yyyy-MM-d");
-// console.log(now);
-
-// daysArray.forEach((day) => {
-//     if (day === now) {
-//         console.log(day + " is good");
-//     }
-// });
-
-
-
-
-
 //initialize
 const dueTodaySidebarDiv = document.querySelector("#due-today-cat");
 const upcomingSidebarDiv = document.querySelector("#upcoming-cat");
