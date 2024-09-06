@@ -55,8 +55,10 @@ taskModule.addTask(temp3);
 //initialize
 const dueTodaySidebarDiv = document.querySelector("#due-today-cat");
 const upcomingSidebarDiv = document.querySelector("#upcoming-cat");
+const addProjectBtn = document.querySelector("#add-project-btn");
 eventModule.addELtoDueToday(dueTodaySidebarDiv);
 eventModule.addELtoUpcoming(upcomingSidebarDiv);
+eventModule.addELtoAddProject(addProjectBtn);
 
 renderModule.renderAll(filterTab.filterTaskListProject());
 

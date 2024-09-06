@@ -3,7 +3,7 @@
 //init task ID
 let _idNum = 0;
 //project list outside of updateProject function so it can retain all created projects. User must manually delete project from project list
-const projectsListArray = ["all"];
+export const projectsListArray = ["all"];
 
 export const tasks = [];
 

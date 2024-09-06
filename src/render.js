@@ -28,7 +28,7 @@ function appendElementWithClass(elementType, className, appendHere, clone) {
 }
 
 //render projects list for sidebar selection
-function renderProjectsList() {
+export function renderProjectsList() {
     //may not want to delete all projects (on last delete, user may want to keep the project catergory) 
     projectsListElement.innerHTML = "";
     const tempProjectList = taskModule.updateProjectsList();
@@ -138,4 +138,61 @@ export function renderAll(taskList) {
             checkListDOMelm.appendChild(tempLi);
         });
     });
+}
+
+export function addInputLineText(btn, TempPlaceholder, TempValue, confirmFunc) {
+    const tempParentElm = btn.parentElement;
+
+    //hide current line. No delete because user may cancel the edit
+    tempParentElm.style = "display: none";
+    
+    //create new temp line
+    const editLineHTML = document.createElement("div");
+    editLineHTML.className = "todo-card-line-edit";
+    editLineHTML.innerHTML = `
+        <input
+        type="text"
+        placeholder=${TempPlaceholder}
+        value=${TempValue}>
+    `;
+
+    //create confirm edit button
+    const confirmEditBtn = document.createElement("button");
+    confirmEditBtn.className = "confirm-edit-btn";
+    confirmEditBtn.textContent = "✓";
+    editLineHTML.appendChild(confirmEditBtn);
+
+    //confirm button updates task prop and re-renders all
+    confirmEditBtn.addEventListener("click", () => {
+        if (btn.id === "add-project-btn" && editLineInput.value === "") {
+            //nothing
+        } else {
+            confirmFunc(editLineInput.value);
+            //below is to reset the add project button (renderAll only renders the cards)
+            editLineHTML.remove();
+            tempParentElm.style = "display: initial";
+        }
+    });
+
+    //create cancel edit button
+    const cancelEditBtn = document.createElement("button");
+    cancelEditBtn.className = "cancel-edit-btn";
+    cancelEditBtn.textContent = "↺";
+    editLineHTML.appendChild(cancelEditBtn);
+    //cancel button deletes new HTML and reverts to before edit
+    cancelEditBtn.addEventListener("click", () => {
+        editLineHTML.remove();
+        tempParentElm.style = "display: initial";
+    });
+
+    //declare input line for fancy UI 
+    const editLineInput = editLineHTML.querySelector("input");
+    //setting delay to have the input highlight on edit button click
+    setTimeout(() => {
+        editLineInput.focus();
+        editLineInput.select(); // Highlight the input contents
+    }, 0); // Adjust the delay if needed
+
+    //append temp line after hidden original line
+    tempParentElm.after(editLineHTML);
 }

@@ -87,63 +87,43 @@ export function addELtoChecklistLineDelBtn(btn) {
 }
 
 export function addELtodoLineEditBtn(btn, line) {
+    const inputDataAttrb = line.getAttribute("data-from-input");
+    const lineParent = line.parentElement;
+    const taskID = lineParent.parentElement.id;
+
+    function confirmBtnFunc(editLineInputVal) {
+        taskModule.tasks.forEach((task) => {
+            if (+taskID === task._idNum) {
+                task[inputDataAttrb] = editLineInputVal;
+                renderModule.renderAll(filterTab.filterTaskListProject());
+            }
+        });
+    }
+
+    btn.addEventListener("click", () => {
+        renderModule.addInputLineText(
+            btn,
+            inputDataAttrb.slice(0, -6),
+            line.textContent,
+            confirmBtnFunc
+        );
+    });
+}
+
+export function addELtoAddProject(btn) {
+    function confirmBtnFunc(editLineInputVal) {
+        if (!taskModule.projectsListArray.includes(editLineInputVal)) {
+            taskModule.projectsListArray.push(editLineInputVal);
+            renderModule.renderProjectsList();
+        }  
+    }
     
     btn.addEventListener("click", () => {
-        //declarations
-        const lineParent = line.parentElement;
-        const taskID = lineParent.parentElement.id;
-        const inputDataAttrb = line.getAttribute("data-from-input");
-
-        //hide current line, no delete because user may cancel the edit
-        lineParent.style = "display: none";
-        
-        //create new temp line
-        const editLineHTML = document.createElement("div");
-        editLineHTML.className = "todo-card-line-edit";
-        editLineHTML.innerHTML = `
-            <input
-            type="text"
-            placeholder=${inputDataAttrb.slice(0, -6)}
-            value=${line.textContent}>
-        `;
-        
-        //create confirm edit button
-        const confirmEditBtn = document.createElement("button");
-        confirmEditBtn.className = "todo-card-line-edit-confirm-btn";
-        confirmEditBtn.textContent = "✓";
-        editLineHTML.appendChild(confirmEditBtn);
-        //confirm button updates task prop and re-renders all
-        confirmEditBtn.addEventListener("click", () => {
-            taskModule.tasks.forEach((task) => {
-                if (+taskID === task._idNum) {
-                    const newInputVal = editLineHTML.querySelector("input").value;
-                    
-                    task[inputDataAttrb] = newInputVal;
-                    renderModule.renderAll(filterTab.filterTaskListProject());
-                }
-            });
-        });
-        
-        //create cancel edit button
-        const cancelEditBtn = document.createElement("button");
-        cancelEditBtn.className = "todo-card-line-edit-cancel-btn";
-        cancelEditBtn.textContent = "⨯";
-        editLineHTML.appendChild(cancelEditBtn);
-        //cancel button deletes new HTML and reverts to before edit
-        cancelEditBtn.addEventListener("click", () => {
-            editLineHTML.remove();
-            lineParent.style = "display: initial";
-        });
-
-        //declare input line for fancy UI 
-        const editLineInput = editLineHTML.querySelector("input");
-        //setting delay to have the input highlight on edit button click
-        setTimeout(() => {
-            editLineInput.focus();
-            editLineInput.select(); // Highlight the input contents
-        }, 0); // Adjust the delay if needed
-
-        //append temp line after hidden original line
-        lineParent.after(editLineHTML);
+        renderModule.addInputLineText(
+            btn, 
+            "project", 
+            "", 
+            confirmBtnFunc
+        );
     });
 }
