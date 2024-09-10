@@ -9,8 +9,6 @@ export const tasks = [];
 
 export class Task {
     
-    
-    
     constructor(obj) {
         this["description-input"] = obj["description-input"];
         this["due-date-input"] = obj["due-date-input"];

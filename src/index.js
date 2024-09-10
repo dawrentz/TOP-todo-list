@@ -30,7 +30,7 @@ const test2obj = {
     "project-input": "project2",
     "description-input": "description2",
     "due-date-input": "2024-10-04",
-    "priority-input": "low",
+    "priority-input": "high",
     "notes-input": "notes2",
     "check-list-inputs": ["check2"],
 };
@@ -39,7 +39,7 @@ const test3obj = {
     "project-input": "project3",
     "description-input": "description3",
     "due-date-input": format(new Date(), "yyyy-MM-d"),
-    "priority-input": "low",
+    "priority-input": "med",
     "notes-input": "due today",
     "check-list-inputs": ["check3", "test"],
 };
