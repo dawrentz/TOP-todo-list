@@ -72,6 +72,10 @@ function defaultTodo() {
     const todoTemplate = document.querySelector("#default-todo");
     const todoTemplateClone = document.importNode(todoTemplate.content, true);
     const defaultTodoCard = appendElementWithClass("div", "defaultTodoCard", contentElement, todoTemplateClone);
+
+    //populate project dropdown list
+    const projectInputList = defaultTodoCard.querySelector("#project-input");
+    populateProjectDropDown(projectInputList);
     
     //initialize checklist line and button
     addCheckListLine();
@@ -81,15 +85,25 @@ function defaultTodo() {
     //add eventListener for add check list item (creates another checklist item line with button)
     const addCheckListItemLineBtn = document.querySelector("#default-add-check-list-item-button"); //edit selector
     eventModule.addELtoNewCheckListItemBtn(addCheckListItemLineBtn);
-
+    
     //event listener that adds new task on "add task" click
     eventModule.addELtoDefSubBtn(todoSubmitBtn);
 }
 
+function populateProjectDropDown(dropdownElm) {
+    taskModule.projectsListArray.forEach((project) => {
+        if (project !== "all") {
+            const tempProjectOption = document.createElement("option");
+            tempProjectOption.textContent = project;
+            tempProjectOption.value = project
+            dropdownElm.appendChild(tempProjectOption);
+        }
+    }); 
+}
 export function renderAll(taskList) {
     clearContent();
-    defaultTodo();
     renderProjectsList();
+    defaultTodo();
     
     taskList.forEach(task => {
         //create DOM elements
