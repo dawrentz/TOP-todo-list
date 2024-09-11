@@ -27,7 +27,8 @@ export function addTask(task) {
 }
 
 export function updateProjectsList() {
-    projectsListArray = ["all"];
+    //can't reset the project list each time. This breaks the "add project button"
+    // projectsListArray = ["all"];
     
     tasks.forEach((task) => {
         if (!projectsListArray.includes(task["project-input"])) {

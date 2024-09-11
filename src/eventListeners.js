@@ -137,14 +137,18 @@ export function addELtoProjectEditBtn(btn, li) {
         //save the clicked project name        
         let currentLiTextContent = getDirectTextContent(li);
 
+        //test
+        console.log(taskModule.projectsListArray);
+        
         taskModule.projectsListArray.forEach((project, index) => {
             //loop through project list to find selected project
             if (currentLiTextContent === project ) {
-                //update project name in project list   
-                // taskModule.projectsListArray[index] = editLineInputVal;
-
+                //delete the project out of the list (the project list is an illusion, everything is built from the task list)    
+                taskModule.projectsListArray.splice(index, 1);
+                
             } 
-            //need update all cards with the project name also
+            //need update all cards with the project name also 
+            //(the project list comes from looping through the tasks. This makes is seems as if the "project" has been edited)
             taskModule.tasks.forEach((task, index) => {
                 if (task["project-input"] === currentLiTextContent) {
                     // console.log(taskModule.tasks[index]["project-input"]);
@@ -152,6 +156,10 @@ export function addELtoProjectEditBtn(btn, li) {
                 }
             });
         }); 
+
+        //test
+        console.log(taskModule.projectsListArray);
+        
         renderModule.renderAll(filterTab.filterTaskListProject());
     }
 
@@ -190,7 +198,7 @@ function getDirectTextContent(element) {
 
 
 
-
+//save, deltn for project list
 // export function addELtoProjectListDelBtn(btn, li) {
 //     btn.addEventListener("click", (e) => {
 //         //remove and replace the li to temp disable the li's eventListener
