@@ -29,7 +29,6 @@ function appendElementWithClass(elementType, className, appendHere, clone) {
 
 //render projects list for sidebar selection
 export function renderProjectsList() {
-    //may not want to delete all projects (on last delete, user may want to keep the project catergory) 
     projectsListElement.innerHTML = "";
     const tempProjectList = taskModule.updateProjectsList();
     //remove "all" from top, sort a-z, then and "all" back to top
@@ -38,9 +37,30 @@ export function renderProjectsList() {
     tempProjectList.unshift("all");
 
     tempProjectList.forEach((project) => {
-        const tempLi = document.createElement("li");
-        tempLi.textContent = project;
-        projectsListElement.appendChild(tempLi);
+        const projectLi = document.createElement("li");
+        projectLi.textContent = project;
+
+        //add edit button to each new todo line (not check list)
+        if (project !== "all") {
+            const projectEditBtn = document.createElement("button");
+            projectEditBtn.textContent = "edit";
+            projectEditBtn.className = "todo-line-edit-btn";
+            projectLi.prepend(projectEditBtn);
+
+            eventModule.addELtoProjectEditBtn(projectEditBtn, projectLi);
+
+
+
+            // //add del project button to each, except for "all"
+            // if (projectLi.textContent !== "all") {
+            //     const delBtn = document.createElement("button");
+            //     delBtn.textContent = "×";
+            //     eventModule.addELtoProjectListDelBtn(delBtn, projectLi);
+            //     projectLi.appendChild(delBtn);
+            // }
+
+        }
+        projectsListElement.appendChild(projectLi);
     });
     
     //collect project li's for eventListener
@@ -65,7 +85,6 @@ export function addCheckListLine() {
 }
     
 //add the default "add task" card to page
-
 function defaultTodo() {
     //create DOM elements
     //use html template for form
@@ -100,6 +119,7 @@ function populateProjectDropDown(dropdownElm) {
         }
     }); 
 }
+
 export function renderAll(taskList) {
     clearContent();
     renderProjectsList();
@@ -166,8 +186,8 @@ export function addInputLineText(btn, TempPlaceholder, TempValue, confirmFunc) {
     editLineHTML.innerHTML = `
         <input
         type="text"
-        placeholder=${TempPlaceholder}
-        value=${TempValue}>
+        placeholder="${TempPlaceholder}"
+        value="${TempValue}">
     `;
 
     //create confirm edit button

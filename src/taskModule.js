@@ -3,7 +3,7 @@
 //init task ID
 let _idNum = 0;
 //project list outside of updateProject function so it can retain all created projects. User must manually delete project from project list
-export const projectsListArray = ["all"];
+export let projectsListArray = ["all"];
 
 export const tasks = [];
 
@@ -27,7 +27,8 @@ export function addTask(task) {
 }
 
 export function updateProjectsList() {
-    //insures that "all" is an available "project", then adds new projects
+    projectsListArray = ["all"];
+    
     tasks.forEach((task) => {
         if (!projectsListArray.includes(task["project-input"])) {
             projectsListArray.push(task["project-input"]);

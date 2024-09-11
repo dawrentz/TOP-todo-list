@@ -61,5 +61,3 @@ eventModule.addELtoUpcoming(upcomingSidebarDiv);
 eventModule.addELtoAddProject(addProjectBtn);
 
 renderModule.renderAll(filterTab.filterTaskListProject());
-
-

@@ -56,7 +56,7 @@ export function addELtoProjectLI(liArray) {
     //loop through all projects listed in sidebar
     liArray.forEach((li) => {
         li.addEventListener("click", () => {
-            filterTab.updateCurrentTab(li.textContent);
+            filterTab.updateCurrentTab(getDirectTextContent(li));
             renderModule.renderAll(filterTab.filterTaskListProject());
         });
     });
@@ -131,3 +131,82 @@ export function addELtoAddProject(btn) {
         );
     });
 }
+
+export function addELtoProjectEditBtn(btn, li) {
+    function confirmBtnFunc(editLineInputVal) {
+        //save the clicked project name        
+        let currentLiTextContent = getDirectTextContent(li);
+
+        taskModule.projectsListArray.forEach((project, index) => {
+            //loop through project list to find selected project
+            if (currentLiTextContent === project ) {
+                //update project name in project list   
+                // taskModule.projectsListArray[index] = editLineInputVal;
+
+            } 
+            //need update all cards with the project name also
+            taskModule.tasks.forEach((task, index) => {
+                if (task["project-input"] === currentLiTextContent) {
+                    // console.log(taskModule.tasks[index]["project-input"]);
+                    taskModule.tasks[index]["project-input"] = editLineInputVal;
+                }
+            });
+        }); 
+        renderModule.renderAll(filterTab.filterTaskListProject());
+    }
+
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Stop the event from bubbling up to the parent `li` (a click on the li will filter page by project)
+        
+        renderModule.addInputLineText(
+            btn, 
+            "new project name", 
+            getDirectTextContent(li), 
+            confirmBtnFunc
+        );
+
+        //need del button here also
+
+
+
+    });
+}
+
+
+//textContent keeps collecting the element's text and the element's children's text. This function avoids that
+function getDirectTextContent(element) {
+    let text = "";
+    element.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            text += node.textContent;
+        }
+    });
+    return text;
+}
+
+
+
+
+
+
+
+
+// export function addELtoProjectListDelBtn(btn, li) {
+//     btn.addEventListener("click", (e) => {
+//         //remove and replace the li to temp disable the li's eventListener
+//         li.style = "display: none";
+//         const tempLi = document.createElement("li");
+//         //remove "x" from button in project name
+//         let projectNameArray = li.textContent.split("");
+//         projectNameArray.pop();
+//         let fixedProjectName = projectNameArray.join("");
+//         tempLi.textContent = fixedProjectName;
+//         tempLi.style = "text-decoration: line-through";
+//         li.after(tempLi);
+
+        
+        
+        
+        
+//     });
+// }

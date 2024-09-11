@@ -17,4 +17,8 @@ need:   "Users should be able to create new projects and choose which project th
         -need "add project" in project list
         -need drop down for project input
 
-    
+9/10 
+need:   sidebar project list needs edit but that can change name of project (which changes all the project names of the cards it has also)
+        the delete button can be hidden inside the edit version of the button
+
+        todo card project edit needs dropdown only (only add project at sidebar)
