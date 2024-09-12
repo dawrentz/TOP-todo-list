@@ -40,26 +40,25 @@ export function renderProjectsList() {
         const projectLi = document.createElement("li");
         projectLi.textContent = project;
 
-        //add edit button to each new todo line (not check list)
+        //add edit and del button to each project, except "all"
         if (project !== "all") {
+            //edit button before
             const projectEditBtn = document.createElement("button");
             projectEditBtn.textContent = "edit";
-            projectEditBtn.className = "todo-line-edit-btn";
+            projectEditBtn.className = "edit-btn";
             projectLi.prepend(projectEditBtn);
-
+            
             eventModule.addELtoProjectEditBtn(projectEditBtn, projectLi);
-
-
-
-            // //add del project button to each, except for "all"
-            // if (projectLi.textContent !== "all") {
-            //     const delBtn = document.createElement("button");
-            //     delBtn.textContent = "×";
-            //     eventModule.addELtoProjectListDelBtn(delBtn, projectLi);
-            //     projectLi.appendChild(delBtn);
-            // }
-
+            
+            //del button after
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "×";
+            projectEditBtn.className = "del-btn";
+            projectLi.appendChild(delBtn);
+            
+            eventModule.addELtoProjectListDelBtn(delBtn, projectLi);
         }
+
         projectsListElement.appendChild(projectLi);
     });
     
@@ -109,17 +108,6 @@ function defaultTodo() {
     eventModule.addELtoDefSubBtn(todoSubmitBtn);
 }
 
-function populateProjectDropDown(dropdownElm) {
-    taskModule.projectsListArray.forEach((project) => {
-        if (project !== "all") {
-            const tempProjectOption = document.createElement("option");
-            tempProjectOption.textContent = project;
-            tempProjectOption.value = project
-            dropdownElm.appendChild(tempProjectOption);
-        }
-    }); 
-}
-
 export function renderAll(taskList) {
     clearContent();
     renderProjectsList();
@@ -133,10 +121,10 @@ export function renderAll(taskList) {
         const newTodoCard = appendElementWithClass("div", "newTodoCard", contentElement, newTodoTemplateClone);
         //link idNum for later edit functions
         newTodoCard.id = task._idNum;
-
+        
         const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
         const checkListDOMelm = newTodoCard.querySelector(".checklist-list");
-
+        
         
         for(const prop in task) {
             allNewTodoLines.forEach((line) => {
@@ -160,10 +148,10 @@ export function renderAll(taskList) {
             todoLineEditBtn.textContent = "edit";
             todoLineEditBtn.className = "todo-line-edit-btn";
             line.parentElement.prepend(todoLineEditBtn);
-
+            
             eventModule.addELtodoLineEditBtn(todoLineEditBtn, line);
         });
-    
+        
         // populate corresponding task obj prop to checklist field
         const checkListArray = task["check-list-inputs"];
         checkListArray.forEach((listItem) => {
@@ -184,18 +172,18 @@ export function addInputLineText(btn, TempPlaceholder, TempValue, confirmFunc) {
     const editLineHTML = document.createElement("div");
     editLineHTML.className = "todo-card-line-edit";
     editLineHTML.innerHTML = `
-        <input
-        type="text"
-        placeholder="${TempPlaceholder}"
-        value="${TempValue}">
+    <input
+    type="text"
+    placeholder="${TempPlaceholder}"
+    value="${TempValue}">
     `;
-
+    
     //create confirm edit button
     const confirmEditBtn = document.createElement("button");
     confirmEditBtn.className = "confirm-edit-btn";
     confirmEditBtn.textContent = "✓";
     editLineHTML.appendChild(confirmEditBtn);
-
+    
     //confirm button updates task prop and re-renders all
     confirmEditBtn.addEventListener("click", () => {
         if (btn.id === "add-project-btn" && editLineInput.value === "") {
@@ -207,7 +195,7 @@ export function addInputLineText(btn, TempPlaceholder, TempValue, confirmFunc) {
             tempParentElm.style = "display: initial";
         }
     });
-
+    
     //create cancel edit button
     const cancelEditBtn = document.createElement("button");
     cancelEditBtn.className = "cancel-edit-btn";
@@ -226,7 +214,18 @@ export function addInputLineText(btn, TempPlaceholder, TempValue, confirmFunc) {
         editLineInput.focus();
         editLineInput.select(); // Highlight the input contents
     }, 0); // Adjust the delay if needed
-
+    
     //append temp line after hidden original line
     tempParentElm.after(editLineHTML);
+}
+
+function populateProjectDropDown(dropdownElm) {
+    taskModule.projectsListArray.forEach((project) => {
+        if (project !== "all") {
+            const tempProjectOption = document.createElement("option");
+            tempProjectOption.textContent = project;
+            tempProjectOption.value = project
+            dropdownElm.appendChild(tempProjectOption);
+        }
+    }); 
 }

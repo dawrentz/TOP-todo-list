@@ -4,24 +4,11 @@ https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 Create todo list app using modules while ultilizing npm/webpack. 
 
 
-9/5
-idea:   order cards a-z first always, then by date, then by filter? by id?
+todo:
+        -"Users should be able to create new projects and choose which project their todos go into."
+        -able to input input empty project in dropdown selection
+        -edit line button needs to adjust for date and priority
+        -need drop down for project input in todo card edits
+        -able to edit project name to ""
+        -if filtered on the project that is edited, set filter to the edit
 
-bug?:   if no tasks for a project, project deletes from project list (need empty projects? probably)
-bug:    can input empty project in dropdown selection
-
-note:   edit line button needs to adjust for date and priority
-
-need:   "Users should be able to create new projects and choose which project their todos go into."
-        -project list need delete button (and confirm)
-        -need "add project" in project list
-        -need drop down for project input
-
-9/10 
-need:   sidebar project list needs edit but that can change name of project (which changes all the project names of the cards it has also)
-        the delete button can be hidden inside the edit version of the button
-
-        todo card project edit needs dropdown only (only add project at sidebar)
-
-9/12:   add delete button to project list edit
-        found another bug where if you edit an empty project, the project deletes

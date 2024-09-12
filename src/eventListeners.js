@@ -148,14 +148,10 @@ export function addELtoProjectEditBtn(btn, li) {
             //need update all cards with the project name also 
             taskModule.tasks.forEach((task, index) => {
                 if (task["project-input"] === currentLiTextContent) {
-                    // console.log(taskModule.tasks[index]["project-input"]);
                     taskModule.tasks[index]["project-input"] = editLineInputVal;
                 }
             });
         }); 
-
-        //test
-        console.log(taskModule.projectsListArray);
 
         renderModule.renderProjectsList();
         renderModule.renderAll(filterTab.filterTaskListProject());
@@ -163,9 +159,6 @@ export function addELtoProjectEditBtn(btn, li) {
     
     btn.addEventListener("click", (e) => {
         e.stopPropagation(); // Stop the event from bubbling up to the parent `li` (a click on the li will filter page by project)
-
-        //test
-        console.log(taskModule.projectsListArray);
         
         renderModule.addInputLineText(
             btn, 
@@ -173,25 +166,8 @@ export function addELtoProjectEditBtn(btn, li) {
             getDirectTextContent(li), 
             confirmBtnFunc
         );
-
-        //add del button
-         function addELtoProjectListDelBtn(btn, li) {
-            btn.addEventListener("click", (e) => {
-                //remove and replace the li to temp disable the li's eventListener
-                li.style = "display: none";
-                const tempLi = document.createElement("li");
-                //remove "x" from button in project name
-                let projectNameArray = li.textContent.split("");
-                projectNameArray.pop();
-                let fixedProjectName = projectNameArray.join("");
-                tempLi.textContent = fixedProjectName;
-                tempLi.style = "text-decoration: line-through";
-                li.after(tempLi);
-            });
-        }
     });
 }
-
 
 //textContent keeps collecting the element's text and the element's children's text. This function avoids that
 function getDirectTextContent(element) {
@@ -202,4 +178,54 @@ function getDirectTextContent(element) {
         }
     });
     return text;
+}
+
+export function addELtoProjectListDelBtn(btn, li) {
+    //save the clicked project name        
+    let currentLiTextContent = getDirectTextContent(li);
+
+    function confirmBtnFunc() {
+
+        taskModule.projectsListArray.forEach((project, index) => {
+            //loop through project list to find selected project
+            if (currentLiTextContent === project ) {
+                //delete the project out of the list (the project list is an illusion, everything is built from the task list)    
+                taskModule.projectsListArray.splice(index, 1);
+            } 
+            //need update all cards with the project name also 
+            taskModule.tasks.forEach((task, index) => {
+                if (task["project-input"] === currentLiTextContent) {
+                    taskModule.tasks.splice(index, 1);
+                }
+            });
+        }); 
+
+        renderModule.renderProjectsList();
+        renderModule.renderAll(filterTab.filterTaskListProject());
+    }
+
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Stop the event from bubbling up to the parent `li` (a click on the li will filter page by project)
+
+        //reusing this code for the line hiding, return button, and confirm button functions. Have to modify it's input creation (don't need)
+        //is it recyling? is it laziness? is it a sign that I don't know what I'm doing? Who can really say...
+        renderModule.addInputLineText(
+            btn, 
+            "", //no need
+            "", //no need
+            confirmBtnFunc
+        );
+
+        //remove input element and add the proper change for the del button
+        //select the new edit line
+        const currentEditLine = li.nextElementSibling;
+        //remove the input
+        currentEditLine.querySelector("input").remove();
+        //add project name back in and add delete style
+        const projectNameSpan = document.createElement("span");
+        projectNameSpan.textContent = currentLiTextContent;
+        projectNameSpan.style = "text-decoration: line-through";
+        //append ahead of buttons
+        currentEditLine.prepend(projectNameSpan);
+    });
 }
