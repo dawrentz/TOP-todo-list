@@ -125,7 +125,7 @@ export function addELtoAddProject(btn) {
     btn.addEventListener("click", () => {
         renderModule.addInputLineText(
             btn, 
-            "project", 
+            "new project", 
             "", 
             confirmBtnFunc
         );
@@ -137,18 +137,15 @@ export function addELtoProjectEditBtn(btn, li) {
         //save the clicked project name        
         let currentLiTextContent = getDirectTextContent(li);
 
-        //test
-        console.log(taskModule.projectsListArray);
-        
         taskModule.projectsListArray.forEach((project, index) => {
             //loop through project list to find selected project
             if (currentLiTextContent === project ) {
                 //delete the project out of the list (the project list is an illusion, everything is built from the task list)    
                 taskModule.projectsListArray.splice(index, 1);
-                
+                //add the new project to the list
+                taskModule.projectsListArray.push(editLineInputVal);
             } 
             //need update all cards with the project name also 
-            //(the project list comes from looping through the tasks. This makes is seems as if the "project" has been edited)
             taskModule.tasks.forEach((task, index) => {
                 if (task["project-input"] === currentLiTextContent) {
                     // console.log(taskModule.tasks[index]["project-input"]);
@@ -159,12 +156,16 @@ export function addELtoProjectEditBtn(btn, li) {
 
         //test
         console.log(taskModule.projectsListArray);
-        
+
+        renderModule.renderProjectsList();
         renderModule.renderAll(filterTab.filterTaskListProject());
     }
-
+    
     btn.addEventListener("click", (e) => {
         e.stopPropagation(); // Stop the event from bubbling up to the parent `li` (a click on the li will filter page by project)
+
+        //test
+        console.log(taskModule.projectsListArray);
         
         renderModule.addInputLineText(
             btn, 
@@ -173,10 +174,21 @@ export function addELtoProjectEditBtn(btn, li) {
             confirmBtnFunc
         );
 
-        //need del button here also
-
-
-
+        //add del button
+         function addELtoProjectListDelBtn(btn, li) {
+            btn.addEventListener("click", (e) => {
+                //remove and replace the li to temp disable the li's eventListener
+                li.style = "display: none";
+                const tempLi = document.createElement("li");
+                //remove "x" from button in project name
+                let projectNameArray = li.textContent.split("");
+                projectNameArray.pop();
+                let fixedProjectName = projectNameArray.join("");
+                tempLi.textContent = fixedProjectName;
+                tempLi.style = "text-decoration: line-through";
+                li.after(tempLi);
+            });
+        }
     });
 }
 
@@ -191,30 +203,3 @@ function getDirectTextContent(element) {
     });
     return text;
 }
-
-
-
-
-
-
-
-//save, deltn for project list
-// export function addELtoProjectListDelBtn(btn, li) {
-//     btn.addEventListener("click", (e) => {
-//         //remove and replace the li to temp disable the li's eventListener
-//         li.style = "display: none";
-//         const tempLi = document.createElement("li");
-//         //remove "x" from button in project name
-//         let projectNameArray = li.textContent.split("");
-//         projectNameArray.pop();
-//         let fixedProjectName = projectNameArray.join("");
-//         tempLi.textContent = fixedProjectName;
-//         tempLi.style = "text-decoration: line-through";
-//         li.after(tempLi);
-
-        
-        
-        
-        
-//     });
-// }

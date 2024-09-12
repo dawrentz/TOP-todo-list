@@ -22,3 +22,6 @@ need:   sidebar project list needs edit but that can change name of project (whi
         the delete button can be hidden inside the edit version of the button
 
         todo card project edit needs dropdown only (only add project at sidebar)
+
+9/12:   add delete button to project list edit
+        found another bug where if you edit an empty project, the project deletes
