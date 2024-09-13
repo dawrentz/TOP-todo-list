@@ -30,11 +30,11 @@ export function addELtoDefSubBtn(btn) {
                 //pull out all check list input values for seperate array
                 //only include if not blank 
                 else if (input.getAttribute("class") === "check-list-input" && input.value !== "" ) {
-                    checkListValuesForTaskObj.push(input.value);
+                    checkListValuesForTaskObj.push(input.value.trim()); //no extra whitespace
                 }
                 //everything else gets thrown into inputVales array
                 else if (input.getAttribute("class") !== "check-list-input" && input.type !== "radio" ) {
-                    inputValuesObj[input.id] = input.value;
+                    inputValuesObj[input.id] = input.value.trim(); //no extra whitespace
                 }
             });
     
@@ -136,7 +136,7 @@ export function addELtoProjectEditBtn(btn, li) {
     function confirmBtnFunc(editLineInputVal) {
         //save the clicked project name        
         let currentLiTextContent = getDirectTextContent(li);
-
+        
         taskModule.projectsListArray.forEach((project, index) => {
             //loop through project list to find selected project
             if (currentLiTextContent === project ) {
@@ -169,21 +169,10 @@ export function addELtoProjectEditBtn(btn, li) {
     });
 }
 
-//textContent keeps collecting the element's text and the element's children's text. This function avoids that
-function getDirectTextContent(element) {
-    let text = "";
-    element.childNodes.forEach((node) => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            text += node.textContent;
-        }
-    });
-    return text;
-}
-
 export function addELtoProjectListDelBtn(btn, li) {
     //save the clicked project name        
     let currentLiTextContent = getDirectTextContent(li);
-
+    
     function confirmBtnFunc() {
 
         taskModule.projectsListArray.forEach((project, index) => {
@@ -228,4 +217,15 @@ export function addELtoProjectListDelBtn(btn, li) {
         //append ahead of buttons
         currentEditLine.prepend(projectNameSpan);
     });
+}
+
+//textContent keeps collecting the element's text and the element's children's text. This function avoids that
+function getDirectTextContent(element) {
+    let text = "";
+    element.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            text += node.textContent;
+        }
+    });
+    return text;
 }

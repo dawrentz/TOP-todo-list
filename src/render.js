@@ -53,7 +53,7 @@ export function renderProjectsList() {
             //del button after
             const delBtn = document.createElement("button");
             delBtn.textContent = "×";
-            projectEditBtn.className = "del-btn";
+            delBtn.className = "del-btn";
             projectLi.appendChild(delBtn);
             
             eventModule.addELtoProjectListDelBtn(delBtn, projectLi);
@@ -186,10 +186,12 @@ export function addInputLineText(btn, TempPlaceholder, TempValue, confirmFunc) {
     
     //confirm button updates task prop and re-renders all
     confirmEditBtn.addEventListener("click", () => {
-        if (btn.id === "add-project-btn" && editLineInput.value === "") {
+
+        //no extra white space or blanks
+        if (btn.className !== "del-btn" && editLineInput.value.trim() === "") { //delBtn doesn't have input val
             //nothing
         } else {
-            confirmFunc(editLineInput.value);
+            confirmFunc(editLineInput.value.trim());
             //below is to reset the add project button (renderAll only renders the cards)
             editLineHTML.remove();
             tempParentElm.style = "display: initial";
