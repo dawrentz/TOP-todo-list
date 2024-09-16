@@ -36,5 +36,10 @@ export function updateProjectsList() {
         }           
     });
 
+    //remove "all" from top, sort a-z, then and "all" back to top
+    projectsListArray.shift();
+    projectsListArray.sort();
+    projectsListArray.unshift("all");
+
     return projectsListArray;
 }

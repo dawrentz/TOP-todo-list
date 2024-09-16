@@ -119,7 +119,7 @@ export function addELtoAddProject(btn) {
             taskModule.projectsListArray.push(editLineInputVal);
             renderModule.renderProjectsList();
             renderModule.renderAll(filterTab.filterTaskListProject());
-        }  
+        } 
     }
     
     btn.addEventListener("click", () => {
@@ -140,10 +140,12 @@ export function addELtoProjectEditBtn(btn, li) {
         taskModule.projectsListArray.forEach((project, index) => {
             //loop through project list to find selected project
             if (currentLiTextContent === project ) {
-                //delete the project out of the list (the project list is an illusion, everything is built from the task list)    
+                //delete the project out of the list    
                 taskModule.projectsListArray.splice(index, 1);
-                //add the new project to the list
-                taskModule.projectsListArray.push(editLineInputVal);
+                //add the new project to the list (if not already exist)
+                if (!taskModule.projectsListArray.includes(editLineInputVal)) {
+                    taskModule.projectsListArray.push(editLineInputVal);
+                }
             } 
             //need update all cards with the project name also 
             taskModule.tasks.forEach((task, index) => {
