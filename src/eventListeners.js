@@ -106,7 +106,7 @@ export function addELtodoLineEditBtn(btn, line) {
     btn.addEventListener("click", () => {
         renderModule.addInputLineText(
             btn,
-            inputDataAttrb.slice(0, -6),
+            inputDataAttrb.slice(0, -6), //remove "-input"
             line.textContent,
             confirmBtnFunc
         );
