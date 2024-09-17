@@ -22,6 +22,7 @@ export function addELtoDefSubBtn(btn) {
         if (document.querySelector("#due-date-input").value !== "" && document.querySelector("#project-input").value !== "") {
 
             //identify all user inputs for custom populating of todo cards
+            //using ":first-child" here makes an issues with the radio buttons line (first child is a label)
             allInputsArray.forEach((input) => {
                 //pull out radio inputs and return only the checked one's value
                 if (input.type === "radio" && input.checked ) {

@@ -93,7 +93,11 @@ function defaultTodo() {
     //populate project dropdown list
     const projectInputList = defaultTodoCard.querySelector("#project-input");
     populateProjectDropDown(projectInputList);
-    
+
+    //set default due date today
+    const dueDateInput = document.querySelector("#due-date-input");
+    dueDateInput.value = format(new Date(), "yyyy-MM-d");                 
+
     //initialize checklist line and button
     addCheckListLine();
     
@@ -162,14 +166,8 @@ export function renderAll(taskList) {
 
 export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     const tempParentElm = btn.parentElement;
-    let inputDataType;
-
-    //store the data type being edited
-    if (btn.className !== "del-btn") { //delBtn doesn't have next sibling (will throw error without if statement)
-        inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
-    }
-    console.log(inputDataType);
-
+    
+    
     //hide current line. No delete because user may cancel the edit
     tempParentElm.style = "display: none";
     
@@ -177,62 +175,19 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     const editLineHTML = document.createElement("div");
     editLineHTML.className = "todo-card-line-edit";
     editLineHTML.innerHTML = `
-        <input
-        type="text"
-        placeholder="${tempPlaceholder}"
-        value="${tempValue}">
+    <input
+    type="text"
+    placeholder="${tempPlaceholder}"
+    value="${tempValue}">
     `;
     
-    //checks for type of input and modifies the HTML
-    checkInputType(btn);
-
-    function checkInputType(btn) {
-        if (btn.className !== "del-btn") { //delBtn doesn't have next sibling (will throw error without if statement)
-            const inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
-            
-            if (inputDataType === "due-date-input" || inputDataType === "project-input") {
-                modInputLine(inputDataType);
-            }
-        }
+    //check if need modify <input> (only on edits, not delete and add options)
+    let inputDataType = false; //leaves as false for exclusions
+    if (btn.className !== "del-btn" && btn.id !== "add-project-btn") { //delBtn and addProjectBnt don't have next sibling (will throw error without if statement)
+        inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
+        //checks for type of input and modifies the HTML
+        checkInputType(inputDataType, editLineHTML, tempParentElm,tempValue);
     }
-    
-    function modInputLine(inputDataTypeArg) {
-        if (inputDataTypeArg === "project-input") {
-            editLineHTML.innerHTML = `
-                <select 
-                    id="project-input" 
-                    placeholder="project"
-                >
-                <option value="">***select project***</option>
-            `;
-
-            //populate project dropdown list
-            const projectInputList = editLineHTML.querySelector("select");
-            populateProjectDropDown(projectInputList);
-        }
-
-        if (inputDataTypeArg === "due-date-input") {
-            //get card ID to find the original date info (non-formatted);
-            const cardID = tempParentElm.parentElement.id;
-
-            taskModule.tasks.forEach((task) => {
-                if (task._idNum === +cardID) {
-                    tempValue = task["due-date-input"];
-                }
-            });
-            
-            editLineHTML.innerHTML = `
-            <input
-            type="date"
-            value="${tempValue}">
-            `;
-        }
-    }
-    
-    
-    
-    
-    
     
     //create confirm edit button
     const confirmEditBtn = document.createElement("button");
@@ -241,31 +196,18 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     editLineHTML.appendChild(confirmEditBtn);
     
     //declare new input to get user input
-    const editLineInput = editLineHTML.querySelector(":first-child"); //avoids having to write code for input, select, textarea, etc
-    //maybe re write other code with "first-child???
-    //==========================================================================================================================================
-    //==========================================================================================================================================
-    //==========================================================================================================================================
-    //==========================================================================================================================================
-    //==========================================================================================================================================
-
-
-
-
-
+    const editLineInput = editLineHTML.querySelector(":first-child"); //avoids having to write code for input, select, textarea, etc 
+    
     //confirm button updates task prop and re-renders all
     confirmEditBtn.addEventListener("click", () => {
         
         //using trim() for no extra white space or blanks
-        //this checks for blank inputs (the delBtn borrows this function so the expection is included)
+        //this checks for blank inputs (the delBtn borrows this addInputLineText() so the expection is included)
         if (btn.className !== "del-btn" && editLineInput.value.trim() === "") { //delBtn doesn't have input val
             //show error message
         } else {
-            //run confirm logic and reset
+            //run confirm logic (confirmFunc re-renders all)
             confirmFunc(editLineInput.value.trim());
-            //below is to reset the add project button (renderAll only renders the cards)
-            editLineHTML.remove();
-            tempParentElm.style = "display: initial";
         }
     });
     
@@ -276,19 +218,18 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     editLineHTML.appendChild(cancelEditBtn);
     //cancel button deletes new HTML and reverts to before edit
     cancelEditBtn.addEventListener("click", () => {
-        editLineHTML.remove();
-        tempParentElm.style = "display: initial";
+        editLineHTML.remove(); //delete edit line
+        tempParentElm.style = "display: initial"; //reset to original (no need on confirm because re-render all)
     });
 
     //edit input line fancy UI 
-    //setting delay to have the input highlight on edit button click
-    if (btn.className !== "del-btn") { //delBtn doesn't have next sibling (will throw error without if statement)
-        const inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
-        
-        if (inputDataType !== "due-date-input" && inputDataType !== "project-input") {
+    if (inputDataType !== false) { //no need on "non-editable changes" (i.e.: delBtn, addProjectBtn)
+        // const inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
+        if (inputDataType !== "due-date-input" && inputDataType !== "project-input") { //no want focus on these (dropdowns) and select() <select> throws error
+            //setting delay to have the input highlight on edit button click
             setTimeout(() => {
                 editLineInput.focus();
-                editLineInput.select(); // Highlight the input contents
+                editLineInput.select(); //highlight the input contents
             }, 0); // Adjust the delay if needed
         }
     }
@@ -306,4 +247,42 @@ function populateProjectDropDown(dropdownElm) {
             dropdownElm.appendChild(tempProjectOption);
         }
     }); 
+}
+
+function checkInputType(inputDataTypeArg, editLineHTMLArg, tempParentElmArg, tempValueArg) {
+        if (inputDataTypeArg === "due-date-input" || inputDataTypeArg === "project-input") {
+            modInputLine(inputDataTypeArg, editLineHTMLArg, tempParentElmArg, tempValueArg);
+        }
+}
+
+function modInputLine(inputDataTypeArg, editLineHTMLArg, tempParentElmArg, tempValueArg) {
+    if (inputDataTypeArg === "project-input") {
+        editLineHTMLArg.innerHTML = `
+            <select 
+            id="project-input" 
+            placeholder="project">
+                <option value="">***select project***</option>
+        `;
+
+        //populate project dropdown list
+        const projectInputList = editLineHTMLArg.querySelector("select");
+        populateProjectDropDown(projectInputList);
+    }
+
+    if (inputDataTypeArg === "due-date-input") {
+        //get card ID to find the original date info (non-formatted);
+        const cardID = tempParentElmArg.parentElement.id;
+
+        taskModule.tasks.forEach((task) => {
+            if (task._idNum === +cardID) {
+                tempValueArg = task["due-date-input"];
+            }
+        });
+        
+        editLineHTMLArg.innerHTML = `
+            <input
+            type="date"
+            value="${tempValueArg}">
+        `;
+    }
 }
