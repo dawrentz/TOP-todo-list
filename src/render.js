@@ -201,8 +201,8 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     confirmEditBtn.addEventListener("click", () => {
         
         //using trim() for no extra white space or blanks
-        //this checks for blank inputs (the delBtn borrows this addInputLineText() so the expection is included)
-        if (btn.className !== "del-btn" && editLineInput.value.trim() === "") { //delBtn doesn't have input val
+        //this checks for blank inputs (the delBtn borrows this addInputLineText() function, so the expection is included)
+        if (btn.className !== "del-btn" && inputDataType !== "notes-input" && editLineInput.value.trim() === "") { //delBtn doesn't have input val, and don't check notes input
             //show error message
         } else {
             //run confirm logic (confirmFunc re-renders all)
@@ -221,7 +221,7 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
         tempParentElm.style = "display: initial"; //reset to original (no need on confirm because re-render all)
     });
 
-    //edit input line fancy UI 
+    //edit input line fancy UE 
     if (inputDataType !== "due-date-input" && inputDataType !== "project-input") { //no want focus on these (dropdowns) and select() <select> throws error
         //setting delay to have the input highlight on edit button click
         setTimeout(() => {
