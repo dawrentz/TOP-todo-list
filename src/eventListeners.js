@@ -156,6 +156,11 @@ export function addELtoProjectEditBtn(btn, li) {
             });
         }); 
 
+        //filters page to new edited project (if edited project was selected)
+        if (filterTab._currentTab === currentLiTextContent) {
+            filterTab.updateCurrentTab(editLineInputVal); 
+        }
+
         renderModule.renderProjectsList();
         renderModule.renderAll(filterTab.filterTaskListProject());
     }

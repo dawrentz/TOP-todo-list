@@ -5,7 +5,7 @@ import { format } from "date-fns";
 
 
 //init filter to all as default
-let _currentTab = "all";
+export let _currentTab = "all";
 
 
 export function updateCurrentTab(tab) {
