@@ -167,7 +167,6 @@ export function renderAll(taskList) {
 export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     const tempParentElm = btn.parentElement;
     
-    
     //hide current line. No delete because user may cancel the edit
     tempParentElm.style = "display: none";
     
@@ -182,7 +181,7 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     `;
     
     //check if need modify <input> (only on edits, not delete and add options)
-    let inputDataType = false; //leaves as false for exclusions
+    let inputDataType; //leaves as false for exclusions
     if (btn.className !== "del-btn" && btn.id !== "add-project-btn") { //delBtn and addProjectBnt don't have next sibling (will throw error without if statement)
         inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
         //checks for type of input and modifies the HTML
@@ -223,15 +222,12 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     });
 
     //edit input line fancy UI 
-    if (inputDataType !== false) { //no need on "non-editable changes" (i.e.: delBtn, addProjectBtn)
-        // const inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
-        if (inputDataType !== "due-date-input" && inputDataType !== "project-input") { //no want focus on these (dropdowns) and select() <select> throws error
-            //setting delay to have the input highlight on edit button click
-            setTimeout(() => {
-                editLineInput.focus();
-                editLineInput.select(); //highlight the input contents
-            }, 0); // Adjust the delay if needed
-        }
+    if (inputDataType !== "due-date-input" && inputDataType !== "project-input") { //no want focus on these (dropdowns) and select() <select> throws error
+        //setting delay to have the input highlight on edit button click
+        setTimeout(() => {
+            editLineInput.focus();
+            editLineInput.select(); //highlight the input contents
+        }, 0); // Adjust the delay if needed
     }
 
     //append temp line after hidden original line
