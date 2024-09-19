@@ -259,7 +259,7 @@ export function addELtoEditPriorityBtn(btn) {
 
         updateTaskProp(cardElm, "priority-input", btn.textContent);
     });
-};
+}
 
 function updateTaskProp(cardElmArg, propToEdit, newValue) {
     const taskID = cardElmArg.id;

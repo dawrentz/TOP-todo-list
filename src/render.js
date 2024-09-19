@@ -223,6 +223,10 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
         } else {
             //run confirm logic (confirmFunc re-renders all)
             confirmFunc(editLineInput.value.trim());
+            //need include reset for addProjectBrt (is not affected by renderAll)
+            editLineHTML.remove(); //delete edit line
+            tempParentElm.style = "display: initial"; //reset to original (no need on confirm because re-render all)
+            
         }
     });
     
