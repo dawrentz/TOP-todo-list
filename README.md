@@ -17,4 +17,3 @@ notes:
         -may not have need to rely so heavily on renderAll. can update that line and task per occasion
 
 9/19
-going to make default priority a button like on todo cards (click to change)

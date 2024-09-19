@@ -158,12 +158,14 @@ export function renderAll(taskList) {
         //add edit button to each new todo line (not check list)
         //exclude priority and checklist here?--------------------------------------------------------------------
         allNewTodoLines.forEach((line) => {
-            const todoLineEditBtn = document.createElement("button");
-            todoLineEditBtn.textContent = "edit";
-            todoLineEditBtn.className = "todo-line-edit-btn";
-            line.parentElement.prepend(todoLineEditBtn);
-            
-            eventModule.addELtodoLineEditBtn(todoLineEditBtn, line);
+            if (line.getAttribute("data-from-input") !== "priority-input" && line.className !== "checklist-list") {
+                const todoLineEditBtn = document.createElement("button");
+                todoLineEditBtn.textContent = "edit";
+                todoLineEditBtn.className = "todo-line-edit-btn";
+                line.parentElement.prepend(todoLineEditBtn);
+                
+                eventModule.addELtodoLineEditBtn(todoLineEditBtn, line);
+            }
         });
 
         //add eventlistener to priority button
