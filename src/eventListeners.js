@@ -11,22 +11,31 @@ export function addELtoDefSubBtn(btn) {
         const allInputs = document.querySelectorAll("#default-todo-form input");
         //convert to array
         const allInputsArray = Array.from(allInputs);
+        //add non-input elements manually
         //add textarea input
         allInputsArray.push(document.querySelector("#notes-input"));
         //add project input
         allInputsArray.push(document.querySelector("#project-input"));
+        //add priority input
+        allInputsArray.push(document.querySelector("#priority-input"));
+
+        //test 
+        console.log(allInputsArray[allInputsArray.length - 1].type);
 
         const inputValuesObj = {};
         const checkListValuesForTaskObj = [];
 
-        if (document.querySelector("#due-date-input").value !== "" && document.querySelector("#project-input").value !== "") {
-
+        //if statement requires no blank on certain inputs ================================================ need check this, where can user have blanks?
+        if (
+            document.querySelector("#due-date-input").value !== "" &&
+            document.querySelector("#project-input").value !== ""
+        ) {
             //identify all user inputs for custom populating of todo cards
             //using ":first-child" here makes an issues with the radio buttons line (first child is a label)
             allInputsArray.forEach((input) => {
-                //pull out radio inputs and return only the checked one's value
-                if (input.type === "radio" && input.checked ) {
-                    inputValuesObj["priority-input"] = input.value;
+                //pull out priority button selection
+                if (input.type === "button" ) {
+                    inputValuesObj["priority-input"] = input.textContent; //this needs be the priority button=============================================
                 } 
                 //pull out all check list input values for seperate array
                 //only include if not blank 

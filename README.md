@@ -10,5 +10,7 @@ todo:
         -checklist edit/check off
         -all done button (put under priority selector?)
         -task delete button
-        -let edit notes be blank
+        -remove edit button from check list line
 
+9/19
+going to make default priority a button like on todo cards (click to change)

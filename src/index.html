@@ -67,7 +67,9 @@
             </div>
             <div class="form-line" >
                 <label>Priority: </label>
-                <input
+                <button type="button"  
+                id="priority-input">high</button> 
+                <!-- <input
                 type="radio"
                 name="priority"
                 class="priority-input"
@@ -90,7 +92,7 @@
                 id="priority-input-high"
                 value="high"
                 checked>
-                <label for="priority-input-high">high</label>
+                <label for="priority-input-high">high</label> -->
             </div>
             <div class="form-line" >
                 <textarea name="notes"
@@ -107,50 +109,55 @@
         <button type="submit" id="todo-sub-btn">add task</button>
     </template>
 
-        <template id="new-todo">
-            new card
+    <!-- normal todo card template -->
+    <template id="new-todo">
+        new card
+        <div class="todo-card-line">
+            title: 
+            <span 
+            class="title-line" 
+            data-from-input="title-input"></span>
+        </div>
+        <div class="todo-card-line">
+            project: 
+            <span 
+            class="project-line" 
+            data-from-input="project-input"></span>
+        </div>
+        <div class="todo-card-line">
+            description: 
+            <span 
+            class="description-line" 
+            data-from-input="description-input"></span>
+        </div>
+        <div class="todo-card-line">
+            due: 
+            <span 
+            class="due-line" 
+            data-from-input="due-date-input"></span>
+        </div>
+        <!-- priority button -->
+        <div class="todo-card-line">
+            priority: 
+            <!-- <span 
+            class="priority-line" 
+            data-from-input="priority-input"></span> -->
+            <button class="priority-line" 
+            data-from-input="priority-input">
+            </button>
+        </div>
+        <div class="todo-card-line">
+            notes: 
+            <span 
+            class="notes-line" 
+            data-from-input="notes-input"></span>
+        </div>
+        <div class="check-list-container">
             <div class="todo-card-line">
-                title: 
-                <span 
-                class="title-line" 
-                data-from-input="title-input"></span>
+                check:
+                <ol class="checklist-list"></ol>
             </div>
-            <div class="todo-card-line">
-                project: 
-                <span 
-                class="project-line" 
-                data-from-input="project-input"></span>
-            </div>
-            <div class="todo-card-line">
-                description: 
-                <span 
-                class="description-line" 
-                data-from-input="description-input"></span>
-            </div>
-            <div class="todo-card-line">
-                due: 
-                <span 
-                class="due-line" 
-                data-from-input="due-date-input"></span>
-            </div>
-            <div class="todo-card-line">
-                priority: 
-                <span 
-                class="priority-line" 
-                data-from-input="priority-input"></span>
-            </div>
-            <div class="todo-card-line">
-                notes: 
-                <span 
-                class="notes-line" 
-                data-from-input="notes-input"></span>
-            </div>
-            <div class="check-list-container">
-                <div class="todo-card-line">
-                    check:
-                    <ol class="checklist-list"></ol>
-                </div>
-            </div>
+        </div>
     </template>
 
     <template id="checklist-line-template">

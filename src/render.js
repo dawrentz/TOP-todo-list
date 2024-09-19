@@ -96,7 +96,17 @@ function defaultTodo() {
 
     //set default due date today
     const dueDateInput = document.querySelector("#due-date-input");
-    dueDateInput.value = format(new Date(), "yyyy-MM-d");                 
+    dueDateInput.value = format(new Date(), "yyyy-MM-d");
+    
+    //event listener for priority button selector
+    const defaultPriorityBtn = document.querySelector("#priority-input");
+    defaultPriorityBtn.addEventListener("click", () => {
+        defaultPriorityBtn.textContent = 
+            defaultPriorityBtn.textContent === "high" ? "low" : 
+            defaultPriorityBtn.textContent === "low"  ? "med" : "high"
+        ;
+    });
+
 
     //initialize checklist line and button
     addCheckListLine();
@@ -125,7 +135,8 @@ export function renderAll(taskList) {
         //link idNum for later edit functions
         newTodoCard.id = task._idNum;
         
-        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
+        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line > :first-child"); //first child here is the span or button contianing ht e
+        // const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
         const checkListDOMelm = newTodoCard.querySelector(".checklist-list");
                 
         for(const prop in task) {
@@ -143,7 +154,7 @@ export function renderAll(taskList) {
                 }
             });
         }
-        
+
         //add edit button to each new todo line (not check list)
         allNewTodoLines.forEach((line) => {
             const todoLineEditBtn = document.createElement("button");
