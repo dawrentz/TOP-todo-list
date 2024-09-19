@@ -135,10 +135,10 @@ export function renderAll(taskList) {
         //link idNum for later edit functions
         newTodoCard.id = task._idNum;
         
-        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line > :first-child"); //first child here is the span or button contianing ht e
-        // const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line span");
+        const allNewTodoLines = newTodoCard.querySelectorAll(".todo-card-line > :first-child"); //first child here is the element that needs the input data
         const checkListDOMelm = newTodoCard.querySelector(".checklist-list");
-                
+
+        //loops through the empty data lines and matches up the input data
         for(const prop in task) {
             allNewTodoLines.forEach((line) => {
                 if (line.getAttribute("data-from-input") === prop) {
@@ -156,6 +156,7 @@ export function renderAll(taskList) {
         }
 
         //add edit button to each new todo line (not check list)
+        //exclude priority and checklist here?--------------------------------------------------------------------
         allNewTodoLines.forEach((line) => {
             const todoLineEditBtn = document.createElement("button");
             todoLineEditBtn.textContent = "edit";
@@ -164,7 +165,11 @@ export function renderAll(taskList) {
             
             eventModule.addELtodoLineEditBtn(todoLineEditBtn, line);
         });
-        
+
+        //add eventlistener to priority button
+        const priorityBtn = newTodoCard.querySelector(".priority-line");
+        eventModule.addELtoEditPriorityBtn(priorityBtn);
+
         // populate corresponding task obj prop to checklist field
         const checkListArray = task["check-list-inputs"];
         checkListArray.forEach((listItem) => {

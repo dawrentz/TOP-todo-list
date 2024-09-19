@@ -11,6 +11,10 @@ todo:
         -all done button (put under priority selector?)
         -task delete button
         -remove edit button from check list line
+        -edit project doenst reset after confirm
+
+notes:
+        -may not have need to rely so heavily on renderAll. can update that line and task per occasion
 
 9/19
 going to make default priority a button like on todo cards (click to change)

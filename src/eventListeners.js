@@ -236,6 +236,47 @@ export function addELtoProjectListDelBtn(btn, li) {
     });
 }
 
+export function addELtoEditPriorityBtn(btn) {
+    const cardElm = btn.parentElement.parentElement;
+    
+    
+    btn.addEventListener("click", () => {
+        //no need to re-render all. 
+        //assign card classes based on priority? allow for diff background colors
+
+        if (btn.textContent === "done") {
+            btn.textContent = "low";
+        }
+        else if (btn.textContent === "low") {
+            btn.textContent = "med";
+        }
+        else if (btn.textContent === "med") {
+            btn.textContent = "high";
+        }
+        else if (btn.textContent === "high") {
+            btn.textContent = "done";
+        }
+
+        updateTaskProp(cardElm, "priority-input", btn.textContent);
+    });
+};
+
+function updateTaskProp(cardElmArg, propToEdit, newValue) {
+    const taskID = cardElmArg.id;
+    
+    taskModule.tasks.forEach((task) => {
+        if (task._idNum === +taskID) {
+            task[propToEdit] = newValue;
+            // console.log(taskID);
+        }
+    });
+
+
+    
+
+}
+
+
 //textContent keeps collecting the element's text and the element's children's text. This function avoids that
 function getDirectTextContent(element) {
     let text = "";

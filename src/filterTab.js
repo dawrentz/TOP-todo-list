@@ -16,7 +16,7 @@ export function updateCurrentTab(tab) {
 export function filterTaskListProject() {
     //set init filter to decreasing priority, then due date (maintains nice order with repeat due dates and no reordering from default "all" to "upcoming")
     let initTaskList = [];
-    //adds high first, then med and low
+    //adds high first, then med, low, and done
     taskModule.tasks.forEach((task) => {
         if (task["priority-input"] === "high") {
             initTaskList.push(task);
@@ -29,6 +29,11 @@ export function filterTaskListProject() {
     });
     taskModule.tasks.forEach((task) => {
         if (task["priority-input"] === "low") {
+            initTaskList.push(task);
+        }
+    });
+    taskModule.tasks.forEach((task) => {
+        if (task["priority-input"] === "done") {
             initTaskList.push(task);
         }
     });
