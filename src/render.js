@@ -176,7 +176,7 @@ export function renderAll(taskList) {
         const checkListArray = task["check-list-inputs"];
         checkListArray.forEach((listItem) => {
             const tempLi = document.createElement('li');
-            tempLi.textContent = listItem;
+            tempLi.textContent = listItem.value;
             checkListDOMelm.appendChild(tempLi);
         });
     });

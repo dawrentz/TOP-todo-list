@@ -19,9 +19,6 @@ export function addELtoDefSubBtn(btn) {
         //add priority input
         allInputsArray.push(document.querySelector("#priority-input"));
 
-        //test 
-        console.log(allInputsArray[allInputsArray.length - 1].type);
-
         const inputValuesObj = {};
         const checkListValuesForTaskObj = [];
 
@@ -35,21 +32,30 @@ export function addELtoDefSubBtn(btn) {
             allInputsArray.forEach((input) => {
                 //pull out priority button selection
                 if (input.type === "button" ) {
-                    inputValuesObj["priority-input"] = input.textContent; //this needs be the priority button=============================================
+                    inputValuesObj["priority-input"] = input.textContent; 
                 } 
                 //pull out all check list input values for seperate array
                 //only include if not blank 
-                else if (input.getAttribute("class") === "check-list-input" && input.value !== "" ) {
-                    checkListValuesForTaskObj.push(input.value.trim()); //no extra whitespace
+                else if (input.getAttribute("class") === "check-list-input" && input.value !== "") {
+                    //store each checklist item as object to include "done/not done" data point in task
+                    const tempCheckListItemObj = {
+                        value: input.value.trim(), //no extra whitespace
+                        isDone: false,
+                    };
+
+                    checkListValuesForTaskObj.push(tempCheckListItemObj);
                 }
                 //everything else gets thrown into inputVales array
-                else if (input.getAttribute("class") !== "check-list-input" && input.type !== "radio" ) {
+                else if (input.getAttribute("class") !== "check-list-input") {
                     inputValuesObj[input.id] = input.value.trim(); //no extra whitespace
                 }
             });
     
             //tack checklist array onto imnputs obj (for Task creation)
             inputValuesObj["check-list-inputs"] = checkListValuesForTaskObj;
+
+            //test
+            console.log(checkListValuesForTaskObj);
     
             // Create a new Task with the inputValues array
             const temp = new taskModule.Task(inputValuesObj);

@@ -23,7 +23,7 @@ const test1obj = {
     "due-date-input": "2024-12-25",
     "priority-input": "low",
     "notes-input": "notes1",
-    "check-list-inputs": ["check1"],
+    "check-list-inputs": [{value: "check1"}],
 };
 const test2obj = {
     "title-input": "title2",
@@ -32,7 +32,7 @@ const test2obj = {
     "due-date-input": "2024-10-04",
     "priority-input": "high",
     "notes-input": "notes2",
-    "check-list-inputs": ["check2"],
+    "check-list-inputs": [{value: "check2"}],
 };
 const test3obj = {
     "title-input": "title3",
@@ -41,7 +41,7 @@ const test3obj = {
     "due-date-input": format(new Date(), "yyyy-MM-d"),
     "priority-input": "med",
     "notes-input": "due today",
-    "check-list-inputs": ["check3", "test"],
+    "check-list-inputs": [{value: "check3"}, {value: "test"}],
 };
 
 const temp1 = new taskModule.Task(test1obj);
