@@ -293,7 +293,7 @@ export function addELtoCheckListItemEditBtn(btn, origLIval) {
                     if (li.value === origLIval) {
                         //update and re-render
                         task["check-list-inputs"][index].value = editLineInputVal;
-                        
+
                         renderModule.renderAll(filterTab.filterTaskListProject());
                     }
                 });
@@ -303,12 +303,17 @@ export function addELtoCheckListItemEditBtn(btn, origLIval) {
 
     btn.addEventListener("click", () => {
 
-        renderModule.addInputLineText(
+        const editLine = renderModule.addInputLineText(
             btn, 
-            "check list item", //no need
-            origLIval, //no need
+            "check list item", 
+            origLIval, 
             confirmBtnFunc
         );
+
+        const liWrapper = document.createElement("li");
+        editLine.before(liWrapper);
+        liWrapper.append(editLine);
+
 
 
     });
@@ -345,7 +350,7 @@ function modCheckListItemAdd(containerElmArg, addItemBtn, inputElmArg) {
     //need card ID to update task info
     const cardID = containerElmArg.parentElement.id;
 
-    //hide "add check list item" btn till the currecnt edit is complete
+    //hide "add check list item" btn till the current edit is complete
     addItemBtn.style = "display: none";
 
     //declare previously made delBtn to modify into a cancel button

@@ -3,6 +3,7 @@
 //imports
 import * as taskModule from "./taskModule.js";
 import * as eventModule from "./eventListeners.js";
+import * as filterTab from "./filterTab.js";
 import { format } from "date-fns";
 
 //declarations
@@ -263,8 +264,12 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     editLineHTML.appendChild(cancelEditBtn);
     //cancel button deletes new HTML and reverts to before edit
     cancelEditBtn.addEventListener("click", () => {
-        editLineHTML.remove(); //delete edit line
-        tempParentElm.style = "display: initial"; //reset to original (no need on confirm because re-render all)
+        // editLineHTML.remove(); //delete edit line
+        // tempParentElm.style = "display: initial"; //reset to original (no need on confirm because re-render all)
+
+        renderAll(filterTab.filterTaskListProject());
+
+
     });
 
     //edit input line fancy UE 
@@ -278,6 +283,8 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
 
     //append temp line after hidden original line
     tempParentElm.after(editLineHTML);
+
+    return editLineInput;
 }
 
 function populateProjectDropDown(dropdownElm) {
