@@ -92,10 +92,24 @@ export function addELtoUpcoming(div) {
     });
 }
 
-export function addELtoNewCheckListItemBtn(btn) {
+export function addELtoNewCheckListItemBtn(btn, inToDoCard) {
     btn.addEventListener("click", () => {
-        renderModule.addCheckListLine();
+        const containerElm = btn.previousElementSibling;
 
+        const inputElm = renderModule.addCheckListLine(containerElm);
+
+        //setting delay to have the input highlight on edit button click
+        //unneeded once remove default values==========================================
+        setTimeout(() => {
+            inputElm.focus();
+            inputElm.select(); //highlight the input contents
+        }, 0); // Adjust the delay if needed
+
+        //modify if not the default todo card
+        if (inToDoCard === true) {
+            modCheckListItemAdd(containerElm, btn, inputElm);
+
+        }
     });
 }
 
@@ -267,6 +281,40 @@ export function addELtoEditPriorityBtn(btn) {
     });
 }
 
+export function addELtoCheckListItemEditBtn(btn, origLIval) {
+    const cardID =btn.parentElement.parentElement.parentElement.parentElement.parentElement.id; //no comment
+
+    function confirmBtnFunc(editLineInputVal) {
+        //find matching task
+        taskModule.tasks.forEach((task) => {
+            if (+cardID === task._idNum) {
+                //find matching check list item
+                task["check-list-inputs"].forEach((li, index) => {
+                    if (li.value === origLIval) {
+                        //update and re-render
+                        task["check-list-inputs"][index].value = editLineInputVal;
+                        
+                        renderModule.renderAll(filterTab.filterTaskListProject());
+                    }
+                });
+            }
+        });
+    }
+
+    btn.addEventListener("click", () => {
+
+        renderModule.addInputLineText(
+            btn, 
+            "check list item", //no need
+            origLIval, //no need
+            confirmBtnFunc
+        );
+
+
+    });
+}
+
+
 function updateTaskProp(cardElmArg, propToEdit, newValue) {
     const taskID = cardElmArg.id;
     
@@ -282,7 +330,6 @@ function updateTaskProp(cardElmArg, propToEdit, newValue) {
 
 }
 
-
 //textContent keeps collecting the element's text and the element's children's text. This function avoids that
 function getDirectTextContent(element) {
     let text = "";
@@ -292,4 +339,68 @@ function getDirectTextContent(element) {
         }
     });
     return text;
+}
+
+function modCheckListItemAdd(containerElmArg, addItemBtn, inputElmArg) {
+    //need card ID to update task info
+    const cardID = containerElmArg.parentElement.id;
+
+    //hide "add check list item" btn till the currecnt edit is complete
+    addItemBtn.style = "display: none";
+
+    //declare previously made delBtn to modify into a cancel button
+    const newCancelBtn = containerElmArg.querySelector(".checklist-item-del-btn");
+    newCancelBtn.textContent = "↺"; 
+    //cancel btn resets the "add item" btn display
+    newCancelBtn.addEventListener("click", () => {
+        addItemBtn.style = "display: initial";
+    });
+
+    //add confirm btn infront of cancel btn
+    const confirmBtn = document.createElement("button");
+    confirmBtn.textContent = "✓";
+    newCancelBtn.before(confirmBtn);
+    //confirmBtn logic
+    confirmBtn.addEventListener("click", () => {
+        taskModule.tasks.forEach((task) => {
+
+            //find task and update
+            if (task._idNum === +cardID) {
+                task["check-list-inputs"].push(
+                    {
+                        value: inputElmArg.value,
+                        isDone: false,
+                    }
+                );
+
+                //re-render all on check list item confirm
+                renderModule.renderAll(filterTab.filterTaskListProject());
+            }
+
+        });
+    });
+
+    //add edit button to checklist items
+    const allCheckListItems = containerElmArg.querySelectorAll("li");
+    allCheckListItems.forEach((item) => {
+
+    });
+    
+
+
+
+    
+
+
+
+
+
+
+    // cancelBtnArg.textContent = "test";
+        
+    // cancelBtn.addEventListener("click", () => {
+    //     console.log("incard del btn");
+    // });
+
+
 }

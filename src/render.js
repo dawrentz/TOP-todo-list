@@ -66,20 +66,24 @@ export function renderProjectsList() {
     eventModule.addELtoProjectLI(allProjectLIs);
 }
 
-export function addCheckListLine() {
+export function addCheckListLine(containerElmArg) { //need list container
     //create DOM for checklist (inside of defaultTodoCard)
     //using seperate template to allow for dynnamic multi-line check list items
     //select checklist line container first
-    const checklistLineFormContainer = document.querySelector("#checklist-line-form-container");
+    // const checklistLineFormContainer = document.querySelector("#checklist-line-form-container"); //edit to be more general so card can use?
     const checkListTemplate = document.querySelector("#checklist-line-template");
     const checkListTemplateClone = document.importNode(checkListTemplate.content, true);
     //add template to checklist container. Repeat on "add checklist item" button click
-    const newCheckListLine = appendElementWithClass("div", "newCheckListLine", checklistLineFormContainer, checkListTemplateClone);
+    const newCheckListLine = appendElementWithClass("div", "newCheckListLine", containerElmArg, checkListTemplateClone);
 
     const checklistLineDelBtn = newCheckListLine.querySelector("button");
     
     //each checklist item comes with a delBtn
     eventModule.addELtoChecklistLineDelBtn(checklistLineDelBtn);
+
+    //return input element  for UI
+    const inputElm = newCheckListLine.querySelector("input");
+    return inputElm;
 }
     
 //add the default "add task" card to page (always comes first)
@@ -107,15 +111,14 @@ function defaultTodo() {
         ;
     });
 
-
     //initialize checklist line and button
-    addCheckListLine();
+    addCheckListLine(document.querySelector("#checklist-line-form-container")); 
     
     const todoSubmitBtn = defaultTodoCard.querySelector("#todo-sub-btn");
     
     //add eventListener for add check list item (creates another checklist item line with button)
-    const addCheckListItemLineBtn = document.querySelector("#default-add-check-list-item-button"); //edit selector
-    eventModule.addELtoNewCheckListItemBtn(addCheckListItemLineBtn);
+    const addCheckListItemLineBtn = document.querySelector("#default-add-check-list-item-button");
+    eventModule.addELtoNewCheckListItemBtn(addCheckListItemLineBtn, false);
     
     //event listener that adds new task on "add task" click
     eventModule.addELtoDefSubBtn(todoSubmitBtn);
@@ -156,7 +159,6 @@ export function renderAll(taskList) {
         }
 
         //add edit button to each new todo line (not check list)
-        //exclude priority and checklist here?--------------------------------------------------------------------
         allNewTodoLines.forEach((line) => {
             if (line.getAttribute("data-from-input") !== "priority-input" && line.className !== "checklist-list") {
                 const todoLineEditBtn = document.createElement("button");
@@ -178,7 +180,29 @@ export function renderAll(taskList) {
             const tempLi = document.createElement('li');
             tempLi.textContent = listItem.value;
             checkListDOMelm.appendChild(tempLi);
+
+            //add edit buttont to each li
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "edit";
+            editBtn.className = "checkList-edit-btn"
+            tempLi.append(editBtn);
+
+            eventModule.addELtoCheckListItemEditBtn(editBtn, listItem.value);
         });
+
+
+
+
+        //add eventlistener to add list item button
+        const addCheckListItemLineBtn = newTodoCard.querySelector(".card-add-check-list-item-button");
+        eventModule.addELtoNewCheckListItemBtn(addCheckListItemLineBtn, true);
+
+
+
+
+
+
+ 
     });
 }
 
@@ -200,7 +224,7 @@ export function addInputLineText(btn, tempPlaceholder, tempValue, confirmFunc) {
     
     //check if need modify <input> (only on edits, not delete and add options)
     let inputDataType; //leaves as false for exclusions
-    if (btn.className !== "del-btn" && btn.id !== "add-project-btn") { //delBtn and addProjectBnt don't have next sibling (will throw error without if statement)
+    if (btn.className !== "del-btn" && btn.id !== "add-project-btn" && btn.className !== "checkList-edit-btn") { //delBtn, addProjectBnt, and CLbtn don't have next sibling (will throw error without if statement)
         inputDataType = btn.nextElementSibling.getAttribute("data-from-input");
         //checks for type of input and modifies the HTML
         checkInputType(inputDataType, editLineHTML, tempParentElm,tempValue);

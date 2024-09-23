@@ -9,9 +9,12 @@ todo:
         -checklist edit/check off
         -all done button (put under priority selector?)
         -task delete button
+        -edit notes needs text area
 
 notes:
         -may not have need to rely so heavily on renderAll. can update that line and task per occasion
 
-9/19
-        next is edit check list
+9/20
+        "add check list item" in cards needs confrim/goback btns
+                -later needs checkoff btn
+                -need modify the borrowed cancel button 
