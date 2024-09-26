@@ -22,7 +22,7 @@
     <!-- templates -->
     <!-- had to move templates out of .content for clearPage() -->
     <template id="default-todo">
-        add new 
+        <button class="default-card-drop-down-btn">+</button>
         <!-- need remove defaults -->
         <form action="#" method="post" id="default-todo-form">
             <div class="form-line" >
@@ -112,6 +112,8 @@
 
     <!-- normal todo card template -->
     <template id="new-todo">
+        <button class="new-card-drop-down-btn">V</button>
+        <button class="new-card-del-btn">X</button>
         <div class="todo-card-line">
             title: 
             <span 

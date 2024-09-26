@@ -19,6 +19,7 @@ export class Task {
         this["check-list-inputs"] = obj["check-list-inputs"];
         //task ID acts as counter giving each task a unique ID (allows cards to be updated after creation)
         this._idNum = _idNum++;
+        this.shortForm = true;
     }
 }
 

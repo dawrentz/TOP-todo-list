@@ -9,7 +9,7 @@ todo:
         -checklist check off/del
         -task delete button
         -edit notes needs text area
-        -issue where re-shown hidden elements page flow is screwed up
+        -if have note that is same, edit changes them all
 
 
 notes:

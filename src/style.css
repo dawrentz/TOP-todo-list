@@ -26,7 +26,8 @@ body {
 
 #content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); */
+    grid-template-columns: 1fr;
     align-content: start;
     gap: 1rem;
   
@@ -58,8 +59,35 @@ body {
 
 .checklist-list {
     margin-left: 2rem;
+    /* display: grid; */
+    /* grid-template-columns: repeat(3, 1fr); */
+    /* gap: 1rem; */
+
+    li {
+        position: relative;
+    }
+
+    .checkList-checkOff-btn {
+        left: -1.5rem;
+        position: absolute;
+
+    }
+
+
+
+    list-style-position: inside;
+/* 
+    li *{
+        margin-left: 0.5rem;
+        
+    } */
+
+
+
+
 }
 
 /* #checklist-line-form-container div:last-child button{
     background-color: red;
 } */
+

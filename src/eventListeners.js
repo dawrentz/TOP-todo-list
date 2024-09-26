@@ -3,6 +3,7 @@
 import * as taskModule from "./taskModule.js";
 import * as renderModule  from "./render.js";
 import * as filterTab from "./filterTab.js";
+import { constructFrom } from "date-fns";
 
 //on submit button click, add new task from user inputs and re-render
 export function addELtoDefSubBtn(btn) {
@@ -314,6 +315,95 @@ export function addELtoCheckListItemEditBtn(btn, origLIval) {
         editLine.before(liWrapper);
         liWrapper.append(editLine);
 
+
+
+    });
+}
+
+export function addELtoCheckOffListItemtBtn(btn, origLIval) {
+    const cardID = btn.parentElement.parentElement.parentElement.parentElement.parentElement.id; //it works
+    
+    btn.addEventListener("click", () => {
+        taskModule.tasks.forEach((task) => {
+            if (+cardID === task._idNum) {
+                //find matching check list item
+                task["check-list-inputs"].forEach((li, index) => {
+                    if (li.value === origLIval) {
+                        //update and re-render
+                        if (task["check-list-inputs"][index].isDone === true) {
+                            task["check-list-inputs"][index].isDone = false;
+                        } else {
+                            task["check-list-inputs"][index].isDone = true;
+                        }
+
+                        renderModule.renderAll(filterTab.filterTaskListProject());
+                    }
+                });
+            }
+        });
+    }); 
+
+}
+
+export function addELtoDelListItemtBtn(btn, li, origLIval) {
+    const cardID =btn.parentElement.parentElement.parentElement.parentElement.parentElement.id; //no comment
+
+    function confirmBtnFunc() {
+        taskModule.tasks.forEach((task) => {
+            if (+cardID === task._idNum) {
+                //find matching check list item
+                task["check-list-inputs"].forEach((li, index) => {
+                    if (li.value === origLIval) {
+                        //update and re-render
+                        task["check-list-inputs"].splice(index, 1);
+
+
+
+
+                        renderModule.renderAll(filterTab.filterTaskListProject());
+                    }
+                });
+            }
+        });
+
+
+    }
+    
+    
+    btn.addEventListener("click", () =>{
+        renderModule.addInputLineText(
+            btn, 
+            "", //no need
+            "", //no need
+            confirmBtnFunc
+        );
+
+        //remove input element and add the proper change for the del button
+        //select the new edit line
+        const currentEditLine = li.nextElementSibling;
+        //remove the input
+        currentEditLine.querySelector("input").remove();
+        //add project name back in and add delete style
+        const projectNameSpan = document.createElement("span");
+        projectNameSpan.textContent = origLIval;
+        projectNameSpan.style = "text-decoration: line-through";
+        //append ahead of buttons
+        currentEditLine.prepend(projectNameSpan);
+        //add confirm message
+        const confirmDelMessage = document.createElement("span");
+        confirmDelMessage.textContent = "delete?";
+        confirmDelMessage.style = " font-style: italic";
+        projectNameSpan.after(confirmDelMessage);
+
+
+
+
+        //wrapper to keep ol looking right
+        const liWrapper = document.createElement("li");
+        currentEditLine.before(liWrapper);
+        liWrapper.append(projectNameSpan);
+
+        
 
 
     });

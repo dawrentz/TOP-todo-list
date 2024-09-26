@@ -5,6 +5,7 @@ import * as taskModule from "./taskModule.js";
 import * as eventModule from "./eventListeners.js";
 import * as filterTab from "./filterTab.js";
 import { format } from "date-fns";
+import { differenceInHoursWithOptions } from "date-fns/fp";
 
 //declarations
 const contentElement = document.querySelector("#content");
@@ -171,6 +172,11 @@ export function renderAll(taskList) {
             }
         });
 
+        //add eventlistener to dropdown btn
+        const dropDownBtn = newTodoCard.querySelector(".new-card-drop-down-btn");
+        // eventModule.addELtoNewCardDropDownBtn(dropDownBtn);
+
+
         //add eventlistener to priority button
         const priorityBtn = newTodoCard.querySelector(".priority-line");
         eventModule.addELtoEditPriorityBtn(priorityBtn);
@@ -182,6 +188,11 @@ export function renderAll(taskList) {
             tempLi.textContent = listItem.value;
             checkListDOMelm.appendChild(tempLi);
 
+            //isDone styling
+            if (listItem.isDone === true) {
+                tempLi.style = "text-decoration: line-through";
+            }
+
             //add edit buttont to each li
             const editBtn = document.createElement("button");
             editBtn.textContent = "edit";
@@ -189,6 +200,26 @@ export function renderAll(taskList) {
             tempLi.append(editBtn);
 
             eventModule.addELtoCheckListItemEditBtn(editBtn, listItem.value);
+
+            //add checkOff btn to each line
+            const checkOffBtn = document.createElement("button");
+            checkOffBtn.textContent = "✓";
+            checkOffBtn.className = "checkList-checkOff-btn"
+            tempLi.prepend(checkOffBtn);
+
+            eventModule.addELtoCheckOffListItemtBtn(checkOffBtn, listItem.value);
+
+            //add delete btn
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "×";
+            delBtn.className = "del-btn"
+            editBtn.after(delBtn);
+
+            eventModule.addELtoDelListItemtBtn(delBtn, tempLi, listItem.value);
+
+
+
+
         });
 
 
@@ -198,7 +229,44 @@ export function renderAll(taskList) {
         const addCheckListItemLineBtn = newTodoCard.querySelector(".card-add-check-list-item-button");
         eventModule.addELtoNewCheckListItemBtn(addCheckListItemLineBtn, true);
 
+        //if false, it renders the whole card
+        if (task.shortForm === true) {
+            //getting really tired
+        }
 
+        //card del btn
+        const newCardDelBtn = newTodoCard.querySelector(".new-card-del-btn");
+        newCardDelBtn.addEventListener("click", () =>{
+            newCardDelBtn.style = "display: none";
+            
+            const confirmBtn = document.createElement("button");
+            confirmBtn.textContent = "✓";
+            confirmBtn.addEventListener("click", () => {
+                taskModule.tasks.forEach((task, index) => {
+                    if (+newTodoCard.id === task._idNum) {
+                        taskModule.tasks.splice(index, 1);
+
+
+                        renderAll(filterTab.filterTaskListProject());
+                    }
+
+                });
+                
+                
+            });
+            newCardDelBtn.after(confirmBtn);
+
+            const cancelBtn = document.createElement("button");
+            cancelBtn.textContent = "↺";
+            cancelBtn.addEventListener("click", () => {
+                confirmBtn.remove();
+                cancelBtn.remove();
+                newCardDelBtn.style = "display: initial";
+            });
+            confirmBtn.after(cancelBtn);
+
+            
+        });
 
 
 
