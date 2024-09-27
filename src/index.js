@@ -15,6 +15,7 @@ import * as eventModule from "./eventListeners.js";
 
 //testing
 import { format } from "date-fns";
+import { arEG } from "date-fns/locale";
 
 const test1obj = {
     "title-input": "title1",
@@ -61,3 +62,26 @@ eventModule.addELtoUpcoming(upcomingSidebarDiv);
 eventModule.addELtoAddProject(addProjectBtn);
 
 renderModule.renderAll(filterTab.filterTaskListProject());
+
+
+
+// let myObj = {
+//     name: "Josh",
+//     age: 34,
+// };
+
+// let myObj_serialized = JSON.stringify(myObj);
+
+// localStorage.setItem("myObj", myObj_serialized);
+// console.log(myObj_serialized);
+
+// let myObj_deserialized = JSON.parse(localStorage.getItem("myObj"));
+// console.log(myObj_deserialized);
+
+
+//im so done with this project. im not going to redo it, ill just take the lessons learned and use them on the next one
+//for example, there should have been an "update task function" thats called every time a task (or project) is updated. then i could add the update localStorage fucntion there. too late now, not going back
+document.addEventListener("click", () => {
+    console.log("localStorage tasks and projects");
+    
+});

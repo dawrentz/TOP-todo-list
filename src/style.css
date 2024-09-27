@@ -91,3 +91,10 @@ body {
     background-color: red;
 } */
 
+.short-form-card {
+    button {
+        color: red;
+    }
+}
+
+

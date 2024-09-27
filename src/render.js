@@ -231,7 +231,8 @@ export function renderAll(taskList) {
 
         //if false, it renders the whole card
         if (task.shortForm === true) {
-            //getting really tired
+            newTodoCard.classList.add("short-form-card")
+            //getting really tired of this...
         }
 
         //card del btn
@@ -264,10 +265,11 @@ export function renderAll(taskList) {
                 newCardDelBtn.style = "display: initial";
             });
             confirmBtn.after(cancelBtn);
-
-            
         });
 
+        //shortform button on card
+        const cardDropDownBtn = newTodoCard.querySelector(".new-card-drop-down-btn");
+        eventModule.addELtoCardDropDownBtn(cardDropDownBtn, newTodoCard);
 
 
 
